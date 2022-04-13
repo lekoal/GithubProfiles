@@ -1,4 +1,4 @@
-package com.example.githubprofiles.ui.main.profilelist
+package com.example.githubprofiles.ui.profilelist
 
 import androidx.lifecycle.ViewModel
 

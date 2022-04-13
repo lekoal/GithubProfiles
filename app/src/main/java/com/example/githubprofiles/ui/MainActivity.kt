@@ -1,4 +1,4 @@
-package com.example.githubprofiles.ui.main
+package com.example.githubprofiles.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

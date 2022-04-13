@@ -6,7 +6,7 @@
     android:paddingHorizontal="@dimen/rv_user_profile_list_horizontal_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.profilelist.UserProfileListFragment">
+    tools:context=".ui.profilelist.UserProfileListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_profile_list"

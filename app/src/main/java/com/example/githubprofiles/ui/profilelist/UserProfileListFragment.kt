@@ -1,11 +1,8 @@
-package com.example.githubprofiles.ui.main.profilelist
+package com.example.githubprofiles.ui.profilelist
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentUserProfileListBinding
 import com.example.githubprofiles.utils.ViewBindingFragment
 
