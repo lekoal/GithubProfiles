@@ -12,7 +12,7 @@ class MockUserProfileGetDataApiImpl : UserProfileGetDataApi{
     }
 
     override fun getUserProfileDetails(userLogin: String): Boolean {
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         if (UserProfileRepoImpl.getUserProfileDetails(userLogin) != null) {
             return true
         }
@@ -20,7 +20,7 @@ class MockUserProfileGetDataApiImpl : UserProfileGetDataApi{
     }
 
     override fun getUserProfileRepoListItem(userLogin: String): Boolean {
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         if (!UserProfileRepoImpl.getUserProfileRepoListItem(userLogin).isNullOrEmpty()) {
             return true
         }

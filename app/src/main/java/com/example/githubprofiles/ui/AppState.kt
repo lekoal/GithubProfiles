@@ -5,8 +5,11 @@ import com.example.githubprofiles.repo.datasource.GitHubUserProfileListItemDTO
 import com.example.githubprofiles.repo.datasource.GitHubUserProfileRepoListItemDTO
 
 sealed class AppState {
-    data class LoadingSuccess(
-        val getUserProfileListData: List<GitHubUserProfileListItemDTO>?,
+    data class LoadingUserProfileListSuccess(
+        val getUserProfileListData: List<GitHubUserProfileListItemDTO>?
+    ) : AppState()
+
+    data class LoadingUserProfileDetailsSuccess(
         val getUserProfileDetailsData: GitHubUserProfileDetailsDTO?,
         val getUserProfileRepoList: List<GitHubUserProfileRepoListItemDTO>?
     ) : AppState()

@@ -1,6 +1,10 @@
 package com.example.githubprofiles.ui.profiledetails
 
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentUserProfileDetailsBinding
 import com.example.githubprofiles.utils.ViewBindingFragment
 
@@ -16,5 +20,12 @@ class UserProfileDetailsFragment :
         fun newInstance() = UserProfileDetailsFragment()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity()
+            .findViewById<Toolbar>(R.id.toolbar)
+            .title = "User profile details & repo list"
+    }
 
 }
