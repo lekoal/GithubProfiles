@@ -9,12 +9,12 @@ import com.example.githubprofiles.utils.ViewBindingFragment
 class UserProfileListFragment :
     ViewBindingFragment<FragmentUserProfileListBinding>(FragmentUserProfileListBinding::inflate) {
 
-    companion object {
-        fun newInstance() = UserProfileListFragment()
-    }
-
     private val viewModel: UserProfileListViewModel by lazy {
         ViewModelProvider(this)[UserProfileListViewModel::class.java]
+    }
+
+    companion object {
+        fun newInstance() = UserProfileListFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
