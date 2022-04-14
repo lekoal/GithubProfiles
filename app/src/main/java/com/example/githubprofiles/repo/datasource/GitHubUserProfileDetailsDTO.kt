@@ -3,7 +3,7 @@ package com.example.githubprofiles.repo.datasource
 
 import com.google.gson.annotations.SerializedName
 
-data class GitHubUserProfileDTO(
+data class GitHubUserProfileDetailsDTO(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
     val bio: Any?,
