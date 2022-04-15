@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
-import com.example.githubprofiles.repo.UserProfileListRecyclerAdapter
 import com.example.githubprofiles.databinding.FragmentUserProfileListBinding
+import com.example.githubprofiles.repo.UserProfileListRecyclerAdapter
 import com.example.githubprofiles.repo.datasource.GitHubUserProfileListItemDTO
 import com.example.githubprofiles.ui.AppState
 import com.example.githubprofiles.ui.profiledetails.USER_PROFILE_DATA
@@ -79,7 +79,7 @@ class UserProfileListFragment :
             val bundle = Bundle()
             bundle.putString(USER_PROFILE_DATA, userProfileData?.login)
             manager.beginTransaction()
-                .add(R.id.container, UserProfileDetailsFragment.newInstance())
+                .add(R.id.container, UserProfileDetailsFragment.newInstance(bundle))
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }

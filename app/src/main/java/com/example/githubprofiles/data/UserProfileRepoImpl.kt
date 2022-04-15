@@ -29,7 +29,7 @@ object UserProfileRepoImpl : UserProfileRepo {
         return listOf(user1, user2, user3)
     }
 
-    override fun getUserProfileDetails(userLogin: String): GitHubUserProfileDetailsDTO? {
+    override fun getUserProfileDetails(userLogin: String?): GitHubUserProfileDetailsDTO? {
         val user1 = GitHubUserProfileDetailsDTO(
             "", "", "", "", "01.02.2003", "user1@mail.com",
             "", 0, "", 0, "", "", "",
@@ -64,7 +64,7 @@ object UserProfileRepoImpl : UserProfileRepo {
         return currentUserProfile
     }
 
-    override fun getUserProfileRepoListItem(userLogin: String): List<GitHubUserProfileRepoListItemDTO>? {
+    override fun getUserProfileRepoListItem(userLogin: String?): List<GitHubUserProfileRepoListItemDTO>? {
         val owner1 = GitHubRepositoryOwnerDTO(
             "", "", "", "", "", "", "",
             1, "user1", "", "", "", "", false,

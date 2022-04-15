@@ -6,6 +6,6 @@ import com.example.githubprofiles.repo.datasource.GitHubUserProfileRepoListItemD
 
 interface UserProfileRepo {
     fun getUserProfileListItem(): List<GitHubUserProfileListItemDTO>?
-    fun getUserProfileDetails(userLogin: String): GitHubUserProfileDetailsDTO?
-    fun getUserProfileRepoListItem(userLogin: String): List<GitHubUserProfileRepoListItemDTO>?
+    fun getUserProfileDetails(userLogin: String?): GitHubUserProfileDetailsDTO?
+    fun getUserProfileRepoListItem(userLogin: String?): List<GitHubUserProfileRepoListItemDTO>?
 }

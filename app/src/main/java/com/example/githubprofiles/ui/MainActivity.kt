@@ -1,7 +1,7 @@
 package com.example.githubprofiles.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.githubprofiles.R
 import com.example.githubprofiles.ui.profilelist.UserProfileListFragment
 

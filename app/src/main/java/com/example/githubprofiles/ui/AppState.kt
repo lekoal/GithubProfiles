@@ -9,9 +9,9 @@ sealed class AppState {
         val getUserProfileListData: List<GitHubUserProfileListItemDTO>?
     ) : AppState()
 
-    data class LoadingUserProfileDetailsSuccess(
-        val getUserProfileDetailsData: GitHubUserProfileDetailsDTO?,
-        val getUserProfileRepoList: List<GitHubUserProfileRepoListItemDTO>?
+    data class LoadingUserProfileRepoSuccess(
+        val getUserProfileRepoList: List<GitHubUserProfileRepoListItemDTO>?,
+        val getUserProfileDetailsData: GitHubUserProfileDetailsDTO?
     ) : AppState()
 
     data class LoadingError(val loadingError: Throwable) : AppState()
