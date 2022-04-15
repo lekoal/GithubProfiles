@@ -1,4 +1,4 @@
-package com.example.githubprofiles.data
+package com.example.githubprofiles.repo
 
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +40,10 @@ class UserProfileListRecyclerAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserProfileListViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): UserProfileListViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.rv_user_profile_item, parent, false)
         return UserProfileListViewHolder(itemView)
@@ -52,7 +55,9 @@ class UserProfileListRecyclerAdapter(
 
     override fun getItemCount() = userProfileList?.size ?: 0
 
-    class OnItemClickListener(val itemClickListener: (userProfileData: GitHubUserProfileListItemDTO?) -> Unit) {
+    class OnItemClickListener(
+        val itemClickListener: (userProfileData: GitHubUserProfileListItemDTO?) -> Unit
+    ) {
         fun onClick(userProfileData: GitHubUserProfileListItemDTO?) =
             itemClickListener(userProfileData)
     }

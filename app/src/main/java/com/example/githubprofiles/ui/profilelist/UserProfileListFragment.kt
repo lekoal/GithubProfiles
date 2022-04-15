@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
-import com.example.githubprofiles.data.UserProfileListRecyclerAdapter
+import com.example.githubprofiles.repo.UserProfileListRecyclerAdapter
 import com.example.githubprofiles.databinding.FragmentUserProfileListBinding
 import com.example.githubprofiles.repo.datasource.GitHubUserProfileListItemDTO
 import com.example.githubprofiles.ui.AppState
@@ -35,7 +35,7 @@ class UserProfileListFragment :
             .findViewById<Toolbar>(R.id.toolbar)
             .title = "User profile list"
 
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getUserProfileList()
     }
 
@@ -77,7 +77,7 @@ class UserProfileListFragment :
     ) {
         if (manager != null) {
             val bundle = Bundle()
-            bundle.putParcelable(USER_PROFILE_DATA, userProfileData)
+            bundle.putString(USER_PROFILE_DATA, userProfileData?.login)
             manager.beginTransaction()
                 .add(R.id.container, UserProfileDetailsFragment.newInstance())
                 .addToBackStack("")

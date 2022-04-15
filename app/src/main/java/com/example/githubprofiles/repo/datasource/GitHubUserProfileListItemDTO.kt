@@ -1,9 +1,8 @@
 package com.example.githubprofiles.repo.datasource
 
-import android.os.Parcelable
+
 import com.google.gson.annotations.SerializedName
 
-@kotlinx.parcelize.Parcelize
 data class GitHubUserProfileListItemDTO(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
@@ -37,4 +36,4 @@ data class GitHubUserProfileListItemDTO(
     val subscriptionsUrl: String?,
     val type: String?,
     val url: String?
-): Parcelable
+)
