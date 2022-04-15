@@ -8,6 +8,8 @@ import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentUserProfileDetailsBinding
 import com.example.githubprofiles.utils.ViewBindingFragment
 
+const val USER_PROFILE_DATA = "USER_PROFILE_DATA"
+
 class UserProfileDetailsFragment :
     ViewBindingFragment<FragmentUserProfileDetailsBinding>
         (FragmentUserProfileDetailsBinding::inflate) {

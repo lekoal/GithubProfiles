@@ -13,7 +13,9 @@ class UserProfileListViewModel(
 
     fun getLiveData() = liveData
 
-    private fun getUserProfileList() {
+    fun getUserProfileList() = getUserProfileListLocal()
+
+    private fun getUserProfileListLocal() {
         liveData.value = AppState.Loading
         liveData.postValue(
             AppState.LoadingUserProfileListSuccess(

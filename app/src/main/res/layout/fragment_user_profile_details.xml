@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="@dimen/user_profile_details_main_padding"
     tools:context=".ui.profiledetails.UserProfileDetailsFragment">
 
@@ -13,11 +14,11 @@
         android:layout_height="@dimen/user_profile_details_avatar_size"
         android:layout_marginEnd="@dimen/user_profile_details_avatar_margin"
         android:layout_marginBottom="@dimen/user_profile_details_avatar_margin"
+        android:src="@drawable/ic_github"
         app:layout_constraintBottom_toTopOf="@id/rv_user_profile_details_repos"
         app:layout_constraintEnd_toStartOf="@id/user_profile_name_load"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_github" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/user_profile_name_load"
@@ -80,8 +81,8 @@
         android:id="@+id/loading_process_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:alpha="0.5"
+        android:background="@color/white"
         android:visibility="gone"
         tools:visibility="visible">
 
