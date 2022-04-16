@@ -2,20 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:paddingHorizontal="@dimen/rv_user_profile_list_horizontal_padding"
-    android:paddingTop="@dimen/rv_user_profile_list_horizontal_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profilelist.UserProfileListFragment">
+    android:animateLayoutChanges="true"
+    android:paddingHorizontal="@dimen/rv_user_profile_list_horizontal_padding"
+    android:paddingTop="@dimen/rv_user_profile_list_horizontal_padding"
+    tools:context=".ui.profilelist.ProfileListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_user_profile_list"
+        android:id="@+id/rv_profiles_load"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/rv_user_profile_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +22,8 @@
         android:id="@+id/loading_process_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:alpha="0.5"
+        android:background="@color/white"
         android:visibility="gone"
         tools:visibility="visible">
 

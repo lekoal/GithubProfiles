@@ -7,7 +7,7 @@
     android:background="@color/light_grey">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_profile_repo_name_load"
+        android:id="@+id/profile_repo_name_load"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,21 +15,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_repo_item_date_text"
+        android:id="@+id/repo_creation_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/user_profile_details_avatar_margin"
         android:text="@string/user_repo_item_date_text"
-        app:layout_constraintEnd_toStartOf="@id/user_repo_item_date_load"
+        app:layout_constraintEnd_toStartOf="@id/repo_creation_date_load"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_repo_name_load" />
+        app:layout_constraintTop_toBottomOf="@id/profile_repo_name_load" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_repo_item_date_load"
+        android:id="@+id/repo_creation_date_load"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/user_repo_item_date_text"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_repo_name_load" />
+        app:layout_constraintStart_toEndOf="@id/repo_creation_date_title"
+        app:layout_constraintTop_toBottomOf="@id/profile_repo_name_load" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

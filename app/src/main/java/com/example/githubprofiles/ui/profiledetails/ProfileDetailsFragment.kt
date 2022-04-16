@@ -10,26 +10,25 @@ import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
-import com.example.githubprofiles.databinding.FragmentUserProfileDetailsBinding
-import com.example.githubprofiles.repo.UserProfileDetailsRecyclerAdapter
-import com.example.githubprofiles.repo.datasource.GitHubUserProfileDetailsDTO
-import com.example.githubprofiles.repo.datasource.GitHubUserProfileRepoListItemDTO
+import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
+import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
+import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
 import com.example.githubprofiles.ui.AppState
 import com.example.githubprofiles.utils.ViewBindingFragment
 
 const val USER_PROFILE_DATA = "USER_PROFILE_DATA"
 
-class UserProfileDetailsFragment :
-    ViewBindingFragment<FragmentUserProfileDetailsBinding>
-        (FragmentUserProfileDetailsBinding::inflate) {
+class ProfileDetailsFragment :
+    ViewBindingFragment<FragmentProfileDetailsBinding>
+        (FragmentProfileDetailsBinding::inflate) {
 
-    private val viewModel: UserProfileDetailsViewModel by lazy {
-        ViewModelProvider(this)[UserProfileDetailsViewModel::class.java]
+    private val viewModel: ProfileDetailsViewModel by lazy {
+        ViewModelProvider(this)[ProfileDetailsViewModel::class.java]
     }
 
     companion object {
-        fun newInstance(bundle: Bundle): UserProfileDetailsFragment {
-            val fragment = UserProfileDetailsFragment()
+        fun newInstance(bundle: Bundle): ProfileDetailsFragment {
+            val fragment = ProfileDetailsFragment()
             fragment.arguments = bundle
             return fragment
         }
@@ -42,15 +41,14 @@ class UserProfileDetailsFragment :
             .findViewById<Toolbar>(R.id.toolbar)
             .title = "User profile details & repo list"
 
-        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        viewModel.getUserProfileDetails(this.arguments?.getString(USER_PROFILE_DATA))
+
     }
 
     private fun renderData(appState: AppState?) {
         when (appState) {
             is AppState.LoadingUserProfileRepoSuccess -> {
-                val userProfileRepoList = appState.getUserProfileRepoList
-                val userProfileDetails = appState.getUserProfileDetailsData
+                val userProfileRepoList = appState.getProfileRepoList
+                val userProfileDetails = appState.getProfileDetailsData
                 binding.loadingProcessLayout.visibility = View.GONE
                 setData(userProfileDetails, userProfileRepoList)
             }
@@ -66,27 +64,27 @@ class UserProfileDetailsFragment :
     }
 
     private fun setData(
-        userProfileDetailsData: GitHubUserProfileDetailsDTO?,
-        userProfileRepoList: List<GitHubUserProfileRepoListItemDTO>?
+        profileDetailsData: GitHubProfileDetailsDTO?,
+        profileRepoList: List<GitHubProfileRepoListItemDTO>?
     ) {
-        val rvUserProfileRepoList = binding.rvUserProfileDetailsRepos
+        val rvUserProfileRepoList = binding.rvProfileReposLoad
 
-        binding.userProfileAvatarLoad.load(
-            userProfileDetailsData?.avatarUrl
+        binding.profileAvatarLoad.load(
+            profileDetailsData?.avatarUrl
         ) {
             precision(Precision.EXACT)
             error(R.drawable.ic_github)
             scale(Scale.FILL)
         }
 
-        binding.userProfileNameLoad.text = userProfileDetailsData?.name
-        binding.userProfileDetailsEmailLoad.text = userProfileDetailsData?.email.toString()
-        binding.userProfileDetailsCreationDate.text = userProfileDetailsData?.createdAt
+        binding.profileNameLoad.text = profileDetailsData?.name
+        binding.profileEmailLoad.text = profileDetailsData?.email.toString()
+        binding.profileCreationDateLoad.text = profileDetailsData?.createdAt
 
         rvUserProfileRepoList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rvUserProfileRepoList.adapter = UserProfileDetailsRecyclerAdapter(
-            userProfileRepoList
+        rvUserProfileRepoList.adapter = ProfileDetailsRecyclerAdapter(
+            profileRepoList
         )
     }
 

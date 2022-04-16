@@ -6,76 +6,76 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="@dimen/user_profile_details_main_padding"
-    tools:context=".ui.profiledetails.UserProfileDetailsFragment">
+    tools:context=".ui.profiledetails.ProfileDetailsFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/user_profile_avatar_load"
+        android:id="@+id/profile_avatar_load"
         android:layout_width="@dimen/user_profile_details_avatar_size"
         android:layout_height="@dimen/user_profile_details_avatar_size"
         android:layout_marginEnd="@dimen/user_profile_details_avatar_margin"
         android:layout_marginBottom="@dimen/user_profile_details_avatar_margin"
         android:src="@drawable/ic_github"
-        app:layout_constraintBottom_toTopOf="@id/rv_user_profile_details_repos"
-        app:layout_constraintEnd_toStartOf="@id/user_profile_name_load"
+        app:layout_constraintBottom_toTopOf="@id/rv_profile_repos_load"
+        app:layout_constraintEnd_toStartOf="@id/profile_name_load"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_profile_name_load"
+        android:id="@+id/profile_name_load"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/text_dark_primary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/user_profile_avatar_load"
+        app:layout_constraintStart_toEndOf="@id/profile_avatar_load"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="temp Name" />
 
     <TextView
-        android:id="@+id/user_profile_details_email_text"
+        android:id="@+id/profile_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_profile_details_email_text"
         android:textColor="@color/text_dark_secondary"
-        app:layout_constraintStart_toStartOf="@id/user_profile_name_load"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_name_load" />
+        app:layout_constraintStart_toStartOf="@id/profile_name_load"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_load" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_profile_details_email_load"
+        android:id="@+id/profile_email_load"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/user_profile_details_avatar_margin"
         android:textColor="@color/text_dark_secondary"
-        app:layout_constraintStart_toEndOf="@id/user_profile_details_email_text"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_name_load" />
+        app:layout_constraintStart_toEndOf="@id/profile_email_title"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_load" />
 
     <TextView
-        android:id="@+id/user_profile_details_creation_date_text"
+        android:id="@+id/profile_creation_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_profile_details_creation_date_text"
         android:textColor="@color/text_dark_secondary"
-        app:layout_constraintStart_toStartOf="@id/user_profile_name_load"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_details_email_text" />
+        app:layout_constraintStart_toStartOf="@id/profile_name_load"
+        app:layout_constraintTop_toBottomOf="@id/profile_email_title" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_profile_details_creation_date"
+        android:id="@+id/profile_creation_date_load"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/user_profile_details_avatar_margin"
         android:textColor="@color/text_dark_secondary"
-        app:layout_constraintStart_toEndOf="@id/user_profile_details_creation_date_text"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_details_email_load" />
+        app:layout_constraintStart_toEndOf="@id/profile_creation_date_title"
+        app:layout_constraintTop_toBottomOf="@id/profile_email_load" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_user_profile_details_repos"
+        android:id="@+id/rv_profile_repos_load"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_avatar_load"
-        tools:listitem="@layout/rv_user_profile_repo_item" />
+        app:layout_constraintTop_toBottomOf="@id/profile_avatar_load"
+        tools:listitem="@layout/rv_profile_repo_item" />
 
     <FrameLayout
         android:id="@+id/loading_process_layout"
