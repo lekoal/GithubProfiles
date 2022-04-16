@@ -7,10 +7,12 @@
     android:layout_marginBottom="@dimen/rv_user_profile_item_margin"
     android:background="@color/light_grey">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.example.githubprofiles.utils.EquilateralImageView
         android:id="@+id/profile_avatar_mini_load"
         android:layout_width="@dimen/user_profile_avatar_min_size"
         android:layout_height="@dimen/user_profile_avatar_min_size"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toStartOf="@id/profile_login_load"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
