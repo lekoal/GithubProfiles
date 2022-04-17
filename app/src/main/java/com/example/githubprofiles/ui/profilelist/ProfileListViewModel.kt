@@ -8,7 +8,7 @@ import com.example.githubprofiles.domain.entities.GitHubProfileListItemDTO
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class ProfileListViewModel(private val profileRepo: ProfileRepo?) : ViewModel() {
+class ProfileListViewModel(private val profileRepo: ProfileRepo) : ViewModel() {
     private val _profiles = MutableLiveData<List<GitHubProfileListItemDTO>>()
     val profiles: LiveData<List<GitHubProfileListItemDTO>> = _profiles
 
@@ -21,16 +21,14 @@ class ProfileListViewModel(private val profileRepo: ProfileRepo?) : ViewModel() 
 
     private fun getUserProfileListRemote() {
         _inProgress.postValue(true)
-        profileRepo
-            ?.getUserProfileListItem()
-            ?.subscribeBy {
-                _inProgress.postValue(false)
-                _profiles.postValue(it)
-            }?.let {
-                compositeDisposable.add(
-                    it
-                )
-            }
+        compositeDisposable.add(
+            profileRepo
+                .getUserProfileListItem()
+                .subscribeBy {
+                    _inProgress.postValue(false)
+                    _profiles.postValue(it)
+                }
+        )
     }
 
     override fun onCleared() {

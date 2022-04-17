@@ -6,16 +6,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.githubprofiles.R
 import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
 import com.example.githubprofiles.utils.ViewBindingFragment
 
-
 class ProfileListFragment :
     ViewBindingFragment<FragmentProfileListBinding>(FragmentProfileListBinding::inflate) {
 
-    private val viewModel: ProfileListViewModel by activityViewModels { ProfileViewModelFactory(activity?.applicationContext?.app?.gitHubGetUsersData) }
+    private val viewModel: ProfileListViewModel by activityViewModels { ProfileViewModelFactory(requireContext().app.gitHubGetUsersData) }
     private val adapter = ProfileListRecyclerAdapter()
 
     companion object {
@@ -35,18 +35,17 @@ class ProfileListFragment :
     }
 
     private fun rvInit() {
-        binding.rvProfilesLoad.layoutManager = LinearLayoutManager(context)
+        binding.rvProfilesLoad.layoutManager = LinearLayoutManager(requireContext())
         binding.rvProfilesLoad.adapter = adapter
     }
 
     private fun eventsHandler() {
-        viewModel.profiles.observe(viewLifecycleOwner) {
+        viewModel.profiles.observe(requireActivity()) {
             adapter.setData(it)
         }
-        viewModel.inProgress.observe(viewLifecycleOwner) { inProgress ->
+        viewModel.inProgress.observe(requireActivity()) { inProgress ->
             binding.loadingProcessLayout.isVisible = inProgress
             binding.rvProfilesLoad.isEnabled = !inProgress
         }
     }
-
 }
