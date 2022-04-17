@@ -1,30 +1,39 @@
 package com.example.githubprofiles.ui.profiledetails
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
+import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
+import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
-import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
-import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
-import com.example.githubprofiles.ui.AppState
-import com.example.githubprofiles.utils.ViewBindingFragment
 
 const val USER_PROFILE_DATA = "USER_PROFILE_DATA"
 
-class ProfileDetailsFragment :
-    ViewBindingFragment<FragmentProfileDetailsBinding>
-        (FragmentProfileDetailsBinding::inflate) {
+class ProfileDetailsFragment : Fragment() {
 
-    private val viewModel: ProfileDetailsViewModel by lazy {
-        ViewModelProvider(this)[ProfileDetailsViewModel::class.java]
+    private var _binding: FragmentProfileDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    private var userLogin = ""
+
+    private val viewModel: ProfileDetailsViewModel by activityViewModels {
+        ProfileDetailsViewModelFactory(
+            requireContext()
+                .app
+                .gitHubGetUsersData
+        )
     }
+
+    private val adapter = ProfileDetailsRecyclerAdapter()
 
     companion object {
         fun newInstance(bundle: Bundle): ProfileDetailsFragment {
@@ -34,6 +43,15 @@ class ProfileDetailsFragment :
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProfileDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,51 +59,41 @@ class ProfileDetailsFragment :
             .findViewById<Toolbar>(R.id.toolbar)
             .title = "User profile details & repo list"
 
+        userLogin = this.arguments?.getString(USER_PROFILE_DATA).toString()
 
+        rvInit()
+        getData(userLogin)
+        eventsHandler()
     }
 
-    private fun renderData(appState: AppState?) {
-        when (appState) {
-            is AppState.LoadingUserProfileRepoSuccess -> {
-                val userProfileRepoList = appState.getProfileRepoList
-                val userProfileDetails = appState.getProfileDetailsData
-                binding.loadingProcessLayout.visibility = View.GONE
-                setData(userProfileDetails, userProfileRepoList)
-            }
-            is AppState.Loading -> {
-                binding.loadingProcessLayout.visibility = View.VISIBLE
-            }
-            else -> {
-                binding.loadingProcessLayout.visibility = View.GONE
-                Toast.makeText(requireContext(), "Error loading data!", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
+    private fun getData(userLogin: String) {
+        viewModel.getProfileRepos(userLogin)
+        viewModel.getProfileDetails(userLogin)
     }
 
-    private fun setData(
-        profileDetailsData: GitHubProfileDetailsDTO?,
-        profileRepoList: List<GitHubProfileRepoListItemDTO>?
-    ) {
-        val rvUserProfileRepoList = binding.rvProfileReposLoad
+    private fun rvInit() {
+        binding.rvProfileReposLoad.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvProfileReposLoad.adapter = adapter
+    }
 
-        binding.profileAvatarLoad.load(
-            profileDetailsData?.avatarUrl
-        ) {
-            precision(Precision.EXACT)
-            error(R.drawable.ic_github)
-            scale(Scale.FILL)
+    private fun eventsHandler() {
+        viewModel.repos.observe(requireActivity()) {
+            adapter.setData(it)
         }
-
-        binding.profileNameLoad.text = profileDetailsData?.name
-        binding.profileEmailLoad.text = profileDetailsData?.email.toString()
-        binding.profileCreationDateLoad.text = profileDetailsData?.createdAt
-
-        rvUserProfileRepoList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rvUserProfileRepoList.adapter = ProfileDetailsRecyclerAdapter(
-            profileRepoList
-        )
+        viewModel.profile.observe(requireActivity()) {
+            binding.profileNameLoad.text = it.name
+            binding.profileAvatarLoad.load(it.avatarUrl) {
+                precision(Precision.EXACT)
+                error(R.drawable.ic_github)
+                scale(Scale.FILL)
+            }
+            binding.profileEmailLoad.text = it.email.toString()
+            binding.profileCreationDateLoad.text = it.createdAt
+        }
+        viewModel.inProgress.observe(requireActivity()) { inProgress ->
+            binding.loadingProcessLayout.isVisible = inProgress
+            binding.rvProfileReposLoad.isEnabled = !inProgress
+        }
     }
 
     override fun onPause() {

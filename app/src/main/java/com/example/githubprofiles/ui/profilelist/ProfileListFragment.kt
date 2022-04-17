@@ -1,29 +1,47 @@
 package com.example.githubprofiles.ui.profilelist
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
 import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
-import com.example.githubprofiles.ui.ProfileViewModelFactory
 import com.example.githubprofiles.ui.profiledetails.ProfileDetailsFragment
 import com.example.githubprofiles.ui.profiledetails.USER_PROFILE_DATA
-import com.example.githubprofiles.utils.ViewBindingFragment
 import io.reactivex.rxjava3.disposables.Disposable
 
-class ProfileListFragment :
-    ViewBindingFragment<FragmentProfileListBinding>(FragmentProfileListBinding::inflate) {
+class ProfileListFragment : Fragment() {
 
-    private val viewModel: ProfileListViewModel by activityViewModels { ProfileViewModelFactory(requireContext().app.gitHubGetUsersData) }
+    private var _binding: FragmentProfileListBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: ProfileListViewModel by activityViewModels {
+                ProfileListViewModelFactory(
+                    requireContext()
+                        .app
+                        .gitHubGetUsersData
+                )
+            }
     private val adapter = ProfileListRecyclerAdapter()
     private var subscribe: Disposable? = null
 
     companion object {
         fun newInstance() = ProfileListFragment()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProfileListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,5 +88,10 @@ class ProfileListFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         subscribe?.dispose()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

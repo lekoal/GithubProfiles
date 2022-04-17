@@ -8,7 +8,7 @@
     android:padding="@dimen/user_profile_details_main_padding"
     tools:context=".ui.profiledetails.ProfileDetailsFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.example.githubprofiles.utils.EquilateralImageView
         android:id="@+id/profile_avatar_load"
         android:layout_width="@dimen/user_profile_details_avatar_size"
         android:layout_height="@dimen/user_profile_details_avatar_size"

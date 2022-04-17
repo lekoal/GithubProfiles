@@ -5,7 +5,7 @@
     <dimen name="user_profile_name_margin">10dp</dimen>
     <dimen name="rv_user_profile_item_margin">10dp</dimen>
     <dimen name="rv_user_profile_list_horizontal_padding">15dp</dimen>
-    <dimen name="user_profile_details_avatar_size">100dp</dimen>
+    <dimen name="user_profile_details_avatar_size">120dp</dimen>
     <dimen name="user_profile_details_avatar_margin">10dp</dimen>
     <dimen name="user_profile_details_main_padding">10dp</dimen>
 </resources>

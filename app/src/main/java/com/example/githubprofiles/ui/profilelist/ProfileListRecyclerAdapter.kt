@@ -24,11 +24,12 @@ class ProfileListRecyclerAdapter :
 
     fun setData(profiles: List<GitHubProfileListItemDTO>) {
         data = profiles
-        notifyItemRangeChanged(0, profiles.size)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_profile_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.rv_profile_item, parent, false)
         return ProfileListViewHolder(view)
     }
 
@@ -49,6 +50,7 @@ class ProfileListRecyclerAdapter :
 
         private val profileLogin: TextView = itemView.findViewById(R.id.profile_login_load)
         private val profileAvatar: ImageView = itemView.findViewById(R.id.profile_avatar_mini_load)
+
         fun bind(item: GitHubProfileListItemDTO) {
             profileLogin.text = item.login
             profileAvatar.load(item.avatarUrl) {
