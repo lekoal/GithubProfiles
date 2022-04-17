@@ -9,11 +9,11 @@ import retrofit2.http.Path
 
 interface GitHubApi {
     @GET("users")
-    fun listUsers(): Single<List<GitHubProfileListItemDTO>>
+    fun listProfiles(): Single<List<GitHubProfileListItemDTO>>
 
     @GET("users/{user}")
-    fun userDetails(@Path("user") user: String?): Single<GitHubProfileDetailsDTO>
+    fun profileDetails(@Path("user") user: String?): Single<GitHubProfileDetailsDTO>
 
     @GET("users/{user}/repos")
-    fun listUserRepos(@Path("user") user: String?): Single<List<GitHubProfileRepoListItemDTO>>
+    fun listRepos(@Path("user") user: String?): Single<List<GitHubProfileRepoListItemDTO>>
 }

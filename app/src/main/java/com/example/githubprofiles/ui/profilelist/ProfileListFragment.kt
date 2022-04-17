@@ -22,13 +22,15 @@ class ProfileListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ProfileListViewModel by activityViewModels {
-                ProfileListViewModelFactory(
-                    requireContext()
-                        .app
-                        .gitHubGetUsersData
-                )
-            }
+        ProfileListViewModelFactory(
+            requireContext()
+                .app
+                .gitHubGetUsersData
+        )
+    }
+
     private val adapter = ProfileListRecyclerAdapter()
+
     private var subscribe: Disposable? = null
 
     companion object {
@@ -79,9 +81,9 @@ class ProfileListFragment : Fragment() {
             .subscribe {
                 bundle.putString(USER_PROFILE_DATA, it)
                 manager?.beginTransaction()
-                    ?.add(R.id.container, ProfileDetailsFragment.newInstance(bundle))
+                    ?.replace(R.id.container, ProfileDetailsFragment.newInstance(bundle))
                     ?.addToBackStack("")
-                    ?.commitAllowingStateLoss()
+                    ?.commit()
             }
     }
 

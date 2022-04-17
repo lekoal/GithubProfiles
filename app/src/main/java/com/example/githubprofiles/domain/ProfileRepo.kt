@@ -6,7 +6,7 @@ import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
 import io.reactivex.rxjava3.core.Single
 
 interface ProfileRepo {
-    fun getUserProfileListItem(): Single<List<GitHubProfileListItemDTO>>
-    fun getUserProfileDetails(userLogin: String?): Single<GitHubProfileDetailsDTO>
-    fun getUserProfileRepoListItem(userLogin: String?): Single<List<GitHubProfileRepoListItemDTO>>
+    fun getProfileListItem(): Single<List<GitHubProfileListItemDTO>>
+    fun getProfileDetails(userLogin: String?): Single<GitHubProfileDetailsDTO>
+    fun getProfileRepoListItem(userLogin: String?): Single<List<GitHubProfileRepoListItemDTO>>
 }

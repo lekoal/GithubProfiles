@@ -18,15 +18,18 @@ class ProfileRetrofitImpl : ProfileRepo {
 
     private val api: GitHubApi = retrofit.create(GitHubApi::class.java)
 
-    override fun getUserProfileListItem(): Single<List<GitHubProfileListItemDTO>> {
-        return api.listUsers()
+    override fun getProfileListItem():
+            Single<List<GitHubProfileListItemDTO>> {
+        return api.listProfiles()
     }
 
-    override fun getUserProfileDetails(userLogin: String?): Single<GitHubProfileDetailsDTO> {
-        return api.userDetails(userLogin)
+    override fun getProfileDetails(userLogin: String?):
+            Single<GitHubProfileDetailsDTO> {
+        return api.profileDetails(userLogin)
     }
 
-    override fun getUserProfileRepoListItem(userLogin: String?): Single<List<GitHubProfileRepoListItemDTO>> {
-        return api.listUserRepos(userLogin)
+    override fun getProfileRepoListItem(userLogin: String?):
+            Single<List<GitHubProfileRepoListItemDTO>> {
+        return api.listRepos(userLogin)
     }
 }

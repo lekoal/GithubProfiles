@@ -3,12 +3,9 @@ package com.example.githubprofiles.ui.profiledetails
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.githubprofiles.R
-import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
 import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
 
 class ProfileDetailsRecyclerAdapter :
@@ -18,7 +15,7 @@ class ProfileDetailsRecyclerAdapter :
 
     fun setData(repos: List<GitHubProfileRepoListItemDTO>) {
         reposData = repos
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, repos.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileDetailsViewHolder {

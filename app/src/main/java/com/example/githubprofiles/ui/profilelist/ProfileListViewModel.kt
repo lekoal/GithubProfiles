@@ -23,7 +23,7 @@ class ProfileListViewModel(private val profileRepo: ProfileRepo) : ViewModel() {
         _inProgress.postValue(true)
         compositeDisposable.add(
             profileRepo
-                .getUserProfileListItem()
+                .getProfileListItem()
                 .subscribeBy {
                     _inProgress.postValue(false)
                     _profiles.postValue(it)

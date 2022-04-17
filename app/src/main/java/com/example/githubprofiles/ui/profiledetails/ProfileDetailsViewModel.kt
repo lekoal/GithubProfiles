@@ -28,7 +28,7 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
     private fun getProfileDetailsRemote(userLogin: String) {
         compositeDisposable.add(
             profileRepo
-                .getUserProfileDetails(userLogin)
+                .getProfileDetails(userLogin)
                 .subscribeBy {
                     _profile.postValue(it)
                 }
@@ -39,7 +39,7 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
         _inProgress.postValue(true)
         compositeDisposable.add(
             profileRepo
-                .getUserProfileRepoListItem(userLogin)
+                .getProfileRepoListItem(userLogin)
                 .subscribeBy {
                     _inProgress.postValue(false)
                     _repos.postValue(it)

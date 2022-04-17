@@ -80,6 +80,7 @@ class ProfileDetailsFragment : Fragment() {
         viewModel.repos.observe(requireActivity()) {
             adapter.setData(it)
         }
+
         viewModel.profile.observe(requireActivity()) {
             binding.profileNameLoad.text = it.name
             binding.profileAvatarLoad.load(it.avatarUrl) {
@@ -90,6 +91,7 @@ class ProfileDetailsFragment : Fragment() {
             binding.profileEmailLoad.text = it.email.toString()
             binding.profileCreationDateLoad.text = it.createdAt
         }
+
         viewModel.inProgress.observe(requireActivity()) { inProgress ->
             binding.loadingProcessLayout.isVisible = inProgress
             binding.rvProfileReposLoad.isEnabled = !inProgress
