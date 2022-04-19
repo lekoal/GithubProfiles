@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -90,6 +91,10 @@ class ProfileDetailsFragment : Fragment() {
             }
             binding.profileEmailLoad.text = it.email.toString()
             binding.profileCreationDateLoad.text = it.createdAt
+        }
+
+        viewModel.onError.observe(requireActivity()) {
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
         }
 
         viewModel.inProgress.observe(requireActivity()) { inProgress ->
