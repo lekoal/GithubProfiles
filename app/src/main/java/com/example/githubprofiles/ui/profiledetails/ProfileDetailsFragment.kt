@@ -56,7 +56,7 @@ class ProfileDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity()
-            .findViewById<Toolbar>(R.id.toolbar)
+            .findViewById<Toolbar>(R.id.activity_main_toolbar)
             .title = "User profile details & repo list"
 
         userLogin = this.arguments?.getString(USER_PROFILE_DATA).toString()
@@ -93,7 +93,7 @@ class ProfileDetailsFragment : Fragment() {
         }
 
         viewModel.inProgress.observe(requireActivity()) { inProgress ->
-            binding.loadingProcessLayout.isVisible = inProgress
+            binding.profileDetailsLoadingProcessLayout.isVisible = inProgress
             binding.rvProfileReposLoad.isEnabled = !inProgress
         }
     }
@@ -101,7 +101,7 @@ class ProfileDetailsFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         requireActivity()
-            .findViewById<Toolbar>(R.id.toolbar)
+            .findViewById<Toolbar>(R.id.activity_main_toolbar)
             .title = "User profile list"
     }
 }

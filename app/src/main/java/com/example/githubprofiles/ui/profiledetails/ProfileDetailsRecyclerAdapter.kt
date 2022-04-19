@@ -20,7 +20,7 @@ class ProfileDetailsRecyclerAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileDetailsViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rv_profile_repo_item, parent, false)
+            .inflate(R.layout.rv_profile_details_repo_item, parent, false)
         return ProfileDetailsViewHolder(view)
     }
 
@@ -33,8 +33,8 @@ class ProfileDetailsRecyclerAdapter :
     override fun getItemCount(): Int = reposData.size
 
     inner class ProfileDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val repoName: TextView = itemView.findViewById(R.id.profile_repo_name_load)
-        private val repoDate: TextView = itemView.findViewById(R.id.repo_creation_date_load)
+        private val repoName: TextView = itemView.findViewById(R.id.profile_details_repo_name_load)
+        private val repoDate: TextView = itemView.findViewById(R.id.profile_details_repo_creation_date_load)
 
         fun bind(repo: GitHubProfileRepoListItemDTO) {
             repoName.text = repo.name

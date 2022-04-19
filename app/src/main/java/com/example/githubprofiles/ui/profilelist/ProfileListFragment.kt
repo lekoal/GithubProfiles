@@ -50,7 +50,7 @@ class ProfileListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity()
-            .findViewById<Toolbar>(R.id.toolbar)
+            .findViewById<Toolbar>(R.id.activity_main_toolbar)
             .title = "User profile list"
 
         rvInit()
@@ -60,8 +60,8 @@ class ProfileListFragment : Fragment() {
     }
 
     private fun rvInit() {
-        binding.rvProfilesLoad.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvProfilesLoad.adapter = adapter
+        binding.rvProfileListLoad.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvProfileListLoad.adapter = adapter
     }
 
     private fun eventsHandler() {
@@ -69,8 +69,8 @@ class ProfileListFragment : Fragment() {
             adapter.setData(it)
         }
         viewModel.inProgress.observe(requireActivity()) { inProgress ->
-            binding.loadingProcessLayout.isVisible = inProgress
-            binding.rvProfilesLoad.isEnabled = !inProgress
+            binding.profileListLoadingProcessLayout.isVisible = inProgress
+            binding.rvProfileListLoad.isEnabled = !inProgress
         }
     }
 
