@@ -19,7 +19,7 @@ const val USER_PROFILE_DATA = "USER_PROFILE_DATA"
 
 class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
-    private val binding by viewBinding(FragmentProfileDetailsBinding::class.java)
+    private val binding: FragmentProfileDetailsBinding by viewBinding()
 
     private var userLogin = ""
 

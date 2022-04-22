@@ -37,7 +37,7 @@ android {
 
 dependencies {
     //Binding
-    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.3'
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.6'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

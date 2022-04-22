@@ -3,7 +3,6 @@ package com.example.githubprofiles.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.ActivityMainBinding
 import com.example.githubprofiles.ui.profilelist.ProfileListFragment
 
