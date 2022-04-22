@@ -1,9 +1,7 @@
 package com.example.githubprofiles.ui.profilelist
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
@@ -17,7 +15,7 @@ import com.example.githubprofiles.ui.profiledetails.ProfileDetailsFragment
 import com.example.githubprofiles.ui.profiledetails.USER_PROFILE_DATA
 import io.reactivex.rxjava3.disposables.Disposable
 
-class ProfileListFragment : Fragment() {
+class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
 
     private var _binding: FragmentProfileListBinding? = null
     private val binding get() = _binding!!
@@ -34,25 +32,9 @@ class ProfileListFragment : Fragment() {
 
     private var subscribe: Disposable? = null
 
-    companion object {
-        fun newInstance() = ProfileListFragment()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProfileListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requireActivity()
-            .findViewById<Toolbar>(R.id.activity_main_toolbar)
-            .title = "User profile list"
+        _binding = FragmentProfileListBinding.bind(view)
 
         rvInit()
         viewModel.getUserProfileList()
@@ -85,7 +67,7 @@ class ProfileListFragment : Fragment() {
             .subscribe {
                 bundle.putString(USER_PROFILE_DATA, it)
                 manager?.beginTransaction()
-                    ?.replace(R.id.container, ProfileDetailsFragment.newInstance(bundle))
+                    ?.replace(R.id.details_container, ProfileDetailsFragment.newInstance(bundle))
                     ?.addToBackStack("")
                     ?.commit()
             }
@@ -94,10 +76,6 @@ class ProfileListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         subscribe?.dispose()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         _binding = null
     }
 }

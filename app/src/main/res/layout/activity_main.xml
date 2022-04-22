@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_outer_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_main_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/cardview_dark_background"
         android:textSize="@dimen/toolbar_text_size"
         app:title="@string/app_name"
-        app:titleTextColor="@color/white"
-        android:layout_width="match_parent"/>
+        app:titleTextColor="@color/white" />
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/main_activity_inner_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:id="@+id/container" />
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/list_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/white" />
+
+        <FrameLayout
+            android:id="@+id/details_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>

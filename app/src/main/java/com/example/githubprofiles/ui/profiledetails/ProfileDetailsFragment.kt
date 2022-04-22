@@ -1,15 +1,13 @@
 package com.example.githubprofiles.ui.profiledetails
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
@@ -19,10 +17,9 @@ import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
 
 const val USER_PROFILE_DATA = "USER_PROFILE_DATA"
 
-class ProfileDetailsFragment : Fragment() {
+class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
-    private var _binding: FragmentProfileDetailsBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentProfileDetailsBinding::class.java)
 
     private var userLogin = ""
 
@@ -44,21 +41,8 @@ class ProfileDetailsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProfileDetailsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requireActivity()
-            .findViewById<Toolbar>(R.id.activity_main_toolbar)
-            .title = "User profile details & repo list"
 
         userLogin = this.arguments?.getString(USER_PROFILE_DATA).toString()
 
@@ -101,12 +85,5 @@ class ProfileDetailsFragment : Fragment() {
             binding.profileDetailsLoadingProcessLayout.isVisible = inProgress
             binding.rvProfileReposLoad.isEnabled = !inProgress
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireActivity()
-            .findViewById<Toolbar>(R.id.activity_main_toolbar)
-            .title = "User profile list"
     }
 }
