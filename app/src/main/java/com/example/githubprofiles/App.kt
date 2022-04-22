@@ -2,15 +2,12 @@ package com.example.githubprofiles
 
 import android.app.Application
 import android.content.Context
-import com.example.githubprofiles.data.MockUserProfileGetDataApiImpl
-import com.example.githubprofiles.repo.UserProfileGetDataApi
+import com.example.githubprofiles.data.ProfileRetrofitImpl
+import com.example.githubprofiles.domain.ProfileRepo
 
 class App : Application() {
-    private val userProfileGetDataApiImpl:
-            UserProfileGetDataApi by lazy {
-                MockUserProfileGetDataApiImpl()
-    }
-
-    val Context.app: App
-        get() = applicationContext as App
+    val gitHubGetUsersData: ProfileRepo by lazy { ProfileRetrofitImpl() }
 }
+
+val Context.app: App
+    get() = applicationContext as App

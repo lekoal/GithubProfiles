@@ -1,9 +1,9 @@
-package com.example.githubprofiles.repo.datasource
+package com.example.githubprofiles.domain.entities
 
 
 import com.google.gson.annotations.SerializedName
 
-data class GitHubUserProfileRepoListItemDTO(
+data class GitHubProfileRepoListItemDTO(
     @SerializedName("allow_forking")
     val allowForking: Boolean?,
     @SerializedName("archive_url")

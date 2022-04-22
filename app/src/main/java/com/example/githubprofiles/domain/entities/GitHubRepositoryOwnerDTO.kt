@@ -1,4 +1,4 @@
-package com.example.githubprofiles.repo.datasource
+package com.example.githubprofiles.domain.entities
 
 
 import com.google.gson.annotations.SerializedName
