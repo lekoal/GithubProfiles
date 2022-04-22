@@ -1,8 +1,11 @@
 package com.example.githubprofiles.domain.entities
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class GitHubRepositoryOwnerDTO(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
@@ -36,4 +39,4 @@ data class GitHubRepositoryOwnerDTO(
     val subscriptionsUrl: String?,
     val type: String?,
     val url: String?
-)
+) : Parcelable

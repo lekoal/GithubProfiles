@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
 import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
-import com.example.githubprofiles.ui.profiledetails.ProfileDetailsFragment
-import com.example.githubprofiles.ui.profiledetails.USER_PROFILE_DATA
 import io.reactivex.rxjava3.disposables.Disposable
 
 class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
@@ -26,6 +24,8 @@ class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
                 .gitHubGetUsersData
         )
     }
+
+    private val controller by lazy { activity as Controller }
 
     private val adapter = ProfileListRecyclerAdapter()
 
@@ -60,16 +60,14 @@ class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
     }
 
     private fun setupItemClick() {
-        val bundle = Bundle()
-        val manager = activity?.supportFragmentManager
         subscribe = adapter.clickEvent
             .subscribe {
-                bundle.putString(USER_PROFILE_DATA, it)
-                manager?.beginTransaction()
-                    ?.replace(R.id.details_container, ProfileDetailsFragment.newInstance(bundle))
-                    ?.addToBackStack("")
-                    ?.commit()
+                controller.showProfileDetails(it)
             }
+    }
+
+    interface Controller {
+        fun showProfileDetails(userLogin: String)
     }
 
     override fun onDestroyView() {
@@ -77,4 +75,5 @@ class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
         subscribe?.dispose()
         _binding = null
     }
+
 }

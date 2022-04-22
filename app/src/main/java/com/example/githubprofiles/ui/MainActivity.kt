@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.githubprofiles.databinding.ActivityMainBinding
+import com.example.githubprofiles.ui.profiledetails.ProfileDetailsFragment
 import com.example.githubprofiles.ui.profilelist.ProfileListFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProfileListFragment.Controller {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -23,5 +24,16 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+    }
+
+    override fun showProfileDetails(userLogin: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(
+                binding.detailsContainer.id,
+                ProfileDetailsFragment.newInstance(userLogin)
+            )
+            .commit()
     }
 }

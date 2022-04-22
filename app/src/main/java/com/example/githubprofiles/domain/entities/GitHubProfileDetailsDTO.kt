@@ -1,17 +1,23 @@
 package com.example.githubprofiles.domain.entities
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+import kotlinx.parcelize.RawValue
+
+
+@Parcelize
 data class GitHubProfileDetailsDTO(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
-    val bio: Any?,
+    val bio: @RawValue Any? = null,
     val blog: String?,
     val company: String?,
     @SerializedName("created_at")
     val createdAt: String?,
-    val email: Any?,
+    val email: @RawValue Any? = null,
     @SerializedName("events_url")
     val eventsUrl: String?,
     val followers: Int?,
@@ -24,7 +30,7 @@ data class GitHubProfileDetailsDTO(
     val gistsUrl: String?,
     @SerializedName("gravatar_id")
     val gravatarId: String?,
-    val hireable: Any?,
+    val hireable: @RawValue Any? = null,
     @SerializedName("html_url")
     val htmlUrl: String?,
     val id: Int?,
@@ -50,9 +56,9 @@ data class GitHubProfileDetailsDTO(
     @SerializedName("subscriptions_url")
     val subscriptionsUrl: String?,
     @SerializedName("twitter_username")
-    val twitterUsername: Any?,
+    val twitterUsername: @RawValue Any? = null,
     val type: String?,
     @SerializedName("updated_at")
     val updatedAt: String?,
     val url: String?
-)
+) : Parcelable

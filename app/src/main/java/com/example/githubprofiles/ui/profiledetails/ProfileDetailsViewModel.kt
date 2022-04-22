@@ -35,7 +35,9 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
                 .getProfileDetails(userLogin)
                 .subscribeBy(
                     onSuccess = {
+                        _inProgress.postValue(false)
                         _profile.postValue(it)
+
                     },
                     onError = {
                         _onError.postValue(NetworkErrorException("Error loading data!"))

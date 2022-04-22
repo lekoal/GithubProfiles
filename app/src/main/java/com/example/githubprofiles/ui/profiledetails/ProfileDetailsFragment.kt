@@ -7,19 +7,24 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
 import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
+import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
+import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
+import com.example.githubprofiles.utils.BasePresenter
 
-const val USER_PROFILE_DATA = "USER_PROFILE_DATA"
+const val PRESENTER_ID = "PRESENTER_ID"
 
 class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
-    private val binding: FragmentProfileDetailsBinding by viewBinding()
+    private var _binding: FragmentProfileDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var presenter: Presenter
 
     private var userLogin = ""
 
@@ -34,20 +39,27 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
     private val adapter = ProfileDetailsRecyclerAdapter()
 
     companion object {
-        fun newInstance(bundle: Bundle): ProfileDetailsFragment {
+        fun newInstance(userLogin: String): ProfileDetailsFragment {
             val fragment = ProfileDetailsFragment()
-            fragment.arguments = bundle
+            fragment.userLogin = userLogin
             return fragment
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentProfileDetailsBinding.bind(view)
 
-        userLogin = this.arguments?.getString(USER_PROFILE_DATA).toString()
-
+        if (savedInstanceState == null) {
+            val id = userLogin
+            presenter = Presenter(id)
+            app.presenterStore.savePresenter(presenter)
+        } else {
+            val presenterId = savedInstanceState.getString(PRESENTER_ID)!!
+            presenter = app.presenterStore.getPresenter(presenterId) as Presenter
+        }
         rvInit()
-        getData(userLogin)
+        getData(presenter.id)
         eventsHandler()
     }
 
@@ -62,11 +74,14 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
     }
 
     private fun eventsHandler() {
+
         viewModel.repos.observe(requireActivity()) {
+            presenter.currentRepoList = it
             adapter.setData(it)
         }
 
         viewModel.profile.observe(requireActivity()) {
+            presenter.currentProfileDetails = it
             binding.profileNameLoad.text = it.name
             binding.profileAvatarLoad.load(it.avatarUrl) {
                 precision(Precision.EXACT)
@@ -86,4 +101,19 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
             binding.rvProfileReposLoad.isEnabled = !inProgress
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(PRESENTER_ID, presenter.id)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+}
+
+class Presenter(override val id: String) : BasePresenter {
+    var currentProfileDetails: GitHubProfileDetailsDTO? = null
+    var currentRepoList: List<GitHubProfileRepoListItemDTO>? = null
 }
