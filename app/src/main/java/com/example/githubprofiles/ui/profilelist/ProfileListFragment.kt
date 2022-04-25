@@ -5,25 +5,18 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
-import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
 import io.reactivex.rxjava3.disposables.Disposable
+import org.koin.android.ext.android.inject
 
 class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
 
     private var _binding: FragmentProfileListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProfileListViewModel by activityViewModels {
-        ProfileListViewModelFactory(
-            requireContext()
-                .app
-                .gitHubGetUsersData
-        )
-    }
+    private val viewModel: ProfileListViewModel by inject()
 
     private val controller by lazy { activity as Controller }
 
