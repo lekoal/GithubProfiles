@@ -31,7 +31,7 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
     private val viewModel: ProfileDetailsViewModel by viewModel()
 
-    private val adapter = ProfileDetailsRecyclerAdapter()
+    private val adapter: ProfileDetailsRecyclerAdapter by inject()
 
     companion object {
         fun newInstance(userLogin: String): ProfileDetailsFragment {

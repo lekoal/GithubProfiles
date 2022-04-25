@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
 import io.reactivex.rxjava3.disposables.Disposable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
@@ -20,7 +21,7 @@ class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
 
     private val controller by lazy { activity as Controller }
 
-    private val adapter = ProfileListRecyclerAdapter()
+    private val adapter: ProfileListRecyclerAdapter by inject()
 
     private var subscribe: Disposable? = null
 
