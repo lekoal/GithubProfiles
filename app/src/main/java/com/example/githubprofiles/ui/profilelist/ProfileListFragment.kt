@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
 import io.reactivex.rxjava3.disposables.Disposable
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
 
     private var _binding: FragmentProfileListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProfileListViewModel by inject()
+    private val viewModel: ProfileListViewModel by viewModel()
 
     private val controller by lazy { activity as Controller }
 

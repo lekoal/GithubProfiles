@@ -16,6 +16,7 @@ import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
 import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val PRESENTER_ID = "PRESENTER_ID"
 
@@ -28,7 +29,7 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
     private var userLogin = ""
 
-    private val viewModel: ProfileDetailsViewModel by inject()
+    private val viewModel: ProfileDetailsViewModel by viewModel()
 
     private val adapter = ProfileDetailsRecyclerAdapter()
 
