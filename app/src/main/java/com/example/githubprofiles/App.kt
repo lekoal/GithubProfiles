@@ -1,9 +1,10 @@
 package com.example.githubprofiles
 
 import android.app.Application
-import com.example.githubprofiles.di.appModule
+import com.example.githubprofiles.di.dbModule
+import com.example.githubprofiles.di.mockModule
 import com.example.githubprofiles.di.storageModule
-import com.example.githubprofiles.domain.usecase.RepositoryUsecase
+import com.example.githubprofiles.di.webModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -12,10 +13,10 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin{
+        startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule, storageModule)
+            modules(webModule, dbModule, mockModule, storageModule)
         }
     }
 }
