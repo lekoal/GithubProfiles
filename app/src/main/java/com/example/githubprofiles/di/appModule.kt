@@ -1,6 +1,9 @@
 package com.example.githubprofiles.di
 
 import com.example.githubprofiles.data.GitHubApi
+import com.example.githubprofiles.data.mock.MockProfileCommonUsecaseImpl
+import com.example.githubprofiles.data.mock.MockProfileDetailsUsecaseImpl
+import com.example.githubprofiles.data.mock.MockRepoCommonUsecaseImpl
 import com.example.githubprofiles.data.web.WebProfileCommonUsecaseImpl
 import com.example.githubprofiles.data.web.WebProfileDetailsUsecaseImpl
 import com.example.githubprofiles.data.web.WebRepoCommonUsecaseImpl
@@ -27,9 +30,12 @@ val appModule = module {
     single<RepositoryUsecase.WebRepoCommonUsecase> { WebRepoCommonUsecaseImpl(get()) }
 
     // Mock
-
+    single<RepositoryUsecase.MockProfileCommonUsecase> { MockProfileCommonUsecaseImpl() }
+    single<RepositoryUsecase.MockProfileDetailsUsecase> { MockProfileDetailsUsecaseImpl() }
+    single<RepositoryUsecase.MockRepoCommonUsecase> { MockRepoCommonUsecaseImpl() }
 
     // DB
+
 
     single<GitHubApi> { get<Retrofit>().create(GitHubApi::class.java) }
     single<Retrofit> {
