@@ -24,7 +24,7 @@ class ProfileListRecyclerAdapter :
 
     fun setData(profiles: List<GitHubProfileListItemDTO>) {
         data = profiles
-        notifyItemRangeChanged(0, profiles.size)
+        notifyItemRangeChanged(0, data.lastIndex)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileListViewHolder {

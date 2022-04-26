@@ -1,10 +1,8 @@
 package com.example.githubprofiles.ui.profilelist
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,11 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
 import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
-import com.example.githubprofiles.ui.profiledetails.ProfileDetailsFragment
-import com.example.githubprofiles.ui.profiledetails.USER_PROFILE_DATA
 import io.reactivex.rxjava3.disposables.Disposable
 
-class ProfileListFragment : Fragment() {
+class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
 
     private var _binding: FragmentProfileListBinding? = null
     private val binding get() = _binding!!
@@ -29,29 +25,15 @@ class ProfileListFragment : Fragment() {
         )
     }
 
+    private val controller by lazy { activity as Controller }
+
     private val adapter = ProfileListRecyclerAdapter()
 
     private var subscribe: Disposable? = null
 
-    companion object {
-        fun newInstance() = ProfileListFragment()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProfileListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requireActivity()
-            .findViewById<Toolbar>(R.id.activity_main_toolbar)
-            .title = "User profile list"
+        _binding = FragmentProfileListBinding.bind(view)
 
         rvInit()
         viewModel.getUserProfileList()
@@ -68,6 +50,9 @@ class ProfileListFragment : Fragment() {
         viewModel.profiles.observe(requireActivity()) {
             adapter.setData(it)
         }
+        viewModel.onError.observe(requireActivity()) {
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+        }
         viewModel.inProgress.observe(requireActivity()) { inProgress ->
             binding.profileListLoadingProcessLayout.isVisible = inProgress
             binding.rvProfileListLoad.isEnabled = !inProgress
@@ -75,25 +60,20 @@ class ProfileListFragment : Fragment() {
     }
 
     private fun setupItemClick() {
-        val bundle = Bundle()
-        val manager = activity?.supportFragmentManager
         subscribe = adapter.clickEvent
             .subscribe {
-                bundle.putString(USER_PROFILE_DATA, it)
-                manager?.beginTransaction()
-                    ?.replace(R.id.container, ProfileDetailsFragment.newInstance(bundle))
-                    ?.addToBackStack("")
-                    ?.commit()
+                controller.showProfileDetails(it)
             }
+    }
+
+    interface Controller {
+        fun showProfileDetails(userLogin: String)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         subscribe?.dispose()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         _binding = null
     }
+
 }

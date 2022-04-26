@@ -2,18 +2,38 @@ package com.example.githubprofiles.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.githubprofiles.R
+import androidx.fragment.app.Fragment
+import com.example.githubprofiles.databinding.ActivityMainBinding
+import com.example.githubprofiles.ui.profiledetails.ProfileDetailsFragment
 import com.example.githubprofiles.ui.profilelist.ProfileListFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProfileListFragment.Controller {
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileListFragment.newInstance())
-                .commitNow()
+            val profileListFragment: Fragment = ProfileListFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .add(binding.listContainer.id, profileListFragment)
+                .commit()
         }
+
+    }
+
+    override fun showProfileDetails(userLogin: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(
+                binding.detailsContainer.id,
+                ProfileDetailsFragment.newInstance(userLogin)
+            )
+            .commit()
     }
 }

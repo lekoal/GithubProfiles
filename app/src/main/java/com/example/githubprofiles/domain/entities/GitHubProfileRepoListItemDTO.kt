@@ -1,8 +1,12 @@
 package com.example.githubprofiles.domain.entities
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class GitHubProfileRepoListItemDTO(
     @SerializedName("allow_forking")
     val allowForking: Boolean?,
@@ -35,7 +39,7 @@ data class GitHubProfileRepoListItemDTO(
     val defaultBranch: String?,
     @SerializedName("deployments_url")
     val deploymentsUrl: String?,
-    val description: Any?,
+    val description: @RawValue Any? = null,
     val disabled: Boolean?,
     @SerializedName("downloads_url")
     val downloadsUrl: String?,
@@ -67,7 +71,7 @@ data class GitHubProfileRepoListItemDTO(
     val hasProjects: Boolean?,
     @SerializedName("has_wiki")
     val hasWiki: Boolean?,
-    val homepage: Any?,
+    val homepage: @RawValue Any? = null,
     @SerializedName("hooks_url")
     val hooksUrl: String?,
     @SerializedName("html_url")
@@ -88,13 +92,13 @@ data class GitHubProfileRepoListItemDTO(
     val language: String?,
     @SerializedName("languages_url")
     val languagesUrl: String?,
-    val license: Any?,
+    val license: @RawValue Any? = null,
     @SerializedName("merges_url")
     val mergesUrl: String?,
     @SerializedName("milestones_url")
     val milestonesUrl: String?,
     @SerializedName("mirror_url")
-    val mirrorUrl: Any?,
+    val mirrorUrl: @RawValue Any? = null,
     val name: String?,
     @SerializedName("node_id")
     val nodeId: String?,
@@ -131,7 +135,7 @@ data class GitHubProfileRepoListItemDTO(
     val tagsUrl: String?,
     @SerializedName("teams_url")
     val teamsUrl: String?,
-    val topics: List<Any>?,
+    val topics: List<@RawValue Any?>,
     @SerializedName("trees_url")
     val treesUrl: String?,
     @SerializedName("updated_at")
@@ -141,4 +145,4 @@ data class GitHubProfileRepoListItemDTO(
     val watchers: Int?,
     @SerializedName("watchers_count")
     val watchersCount: Int?
-)
+) : Parcelable

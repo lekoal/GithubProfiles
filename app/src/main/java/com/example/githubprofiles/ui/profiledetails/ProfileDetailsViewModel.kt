@@ -1,5 +1,6 @@
 package com.example.githubprofiles.ui.profiledetails
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +17,9 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
     private val _repos = MutableLiveData<List<GitHubProfileRepoListItemDTO>>()
     val repos: LiveData<List<GitHubProfileRepoListItemDTO>> = _repos
 
+    private val _onError = MutableLiveData<Throwable>()
+    val onError: LiveData<Throwable> = _onError
+
     private val _inProgress = MutableLiveData<Boolean>()
     val inProgress: LiveData<Boolean> = _inProgress
 
@@ -29,9 +33,16 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
         compositeDisposable.add(
             profileRepo
                 .getProfileDetails(userLogin)
-                .subscribeBy {
-                    _profile.postValue(it)
-                }
+                .subscribeBy(
+                    onSuccess = {
+                        _inProgress.postValue(false)
+                        _profile.postValue(it)
+
+                    },
+                    onError = {
+                        _onError.postValue(NetworkErrorException("Error loading data!"))
+                    }
+                )
         )
     }
 
@@ -40,10 +51,15 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
         compositeDisposable.add(
             profileRepo
                 .getProfileRepoListItem(userLogin)
-                .subscribeBy {
-                    _inProgress.postValue(false)
-                    _repos.postValue(it)
-                }
+                .subscribeBy(
+                    onSuccess = {
+                        _inProgress.postValue(false)
+                        _repos.postValue(it)
+                    },
+                    onError = {
+                        _onError.postValue(NetworkErrorException("Error loading data!"))
+                    }
+                )
         )
     }
 
