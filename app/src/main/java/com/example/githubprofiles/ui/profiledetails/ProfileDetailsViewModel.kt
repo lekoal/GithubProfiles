@@ -4,18 +4,21 @@ import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubprofiles.domain.ProfileRepo
-import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
-import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
+import com.example.githubprofiles.data.web.WebProfileDetails
+import com.example.githubprofiles.data.web.WebRepoCommon
+import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel() {
-    private val _profile = MutableLiveData<GitHubProfileDetailsDTO>()
-    val profile: LiveData<GitHubProfileDetailsDTO> = _profile
+class ProfileDetailsViewModel(
+    private val profileDetails: RepositoryUsecase.WebProfileDetailsUsecase,
+    private val profileRepos: RepositoryUsecase.WebRepoCommonUsecase
+) : ViewModel() {
+    private val _profile = MutableLiveData<WebProfileDetails>()
+    val profile: LiveData<WebProfileDetails> = _profile
 
-    private val _repos = MutableLiveData<List<GitHubProfileRepoListItemDTO>>()
-    val repos: LiveData<List<GitHubProfileRepoListItemDTO>> = _repos
+    private val _repos = MutableLiveData<List<WebRepoCommon>>()
+    val repos: LiveData<List<WebRepoCommon>> = _repos
 
     private val _onError = MutableLiveData<Throwable>()
     val onError: LiveData<Throwable> = _onError
@@ -31,8 +34,8 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
 
     private fun getProfileDetailsRemote(userLogin: String) {
         compositeDisposable.add(
-            profileRepo
-                .getProfileDetails(userLogin)
+            profileDetails
+                .receive(userLogin)
                 .subscribeBy(
                     onSuccess = {
                         _inProgress.postValue(false)
@@ -49,8 +52,8 @@ class ProfileDetailsViewModel(private val profileRepo: ProfileRepo) : ViewModel(
     private fun getProfileReposRemote(userLogin: String) {
         _inProgress.postValue(true)
         compositeDisposable.add(
-            profileRepo
-                .getProfileRepoListItem(userLogin)
+            profileRepos
+                .receive(userLogin)
                 .subscribeBy(
                     onSuccess = {
                         _inProgress.postValue(false)

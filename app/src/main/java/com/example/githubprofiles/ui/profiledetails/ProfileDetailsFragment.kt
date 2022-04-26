@@ -11,8 +11,8 @@ import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
-import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
-import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
+import com.example.githubprofiles.data.web.WebProfileDetails
+import com.example.githubprofiles.data.web.WebRepoCommon
 import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
 import org.koin.android.ext.android.inject
@@ -53,6 +53,7 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
             presenterStore.savePresenter(presenter)
         } else {
             val presenterId = savedInstanceState.getString(PRESENTER_ID)!!
+            userLogin = presenterId
             presenter = presenterStore.getPresenter(presenterId) as Presenter
         }
         rvInit()
@@ -111,6 +112,6 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 }
 
 class Presenter(override val id: String) : BasePresenter {
-    var currentProfileDetails: GitHubProfileDetailsDTO? = null
-    var currentRepoList: List<GitHubProfileRepoListItemDTO>? = null
+    var currentProfileDetails: WebProfileDetails? = null
+    var currentRepoList: List<WebRepoCommon>? = null
 }

@@ -3,6 +3,7 @@ package com.example.githubprofiles
 import android.app.Application
 import com.example.githubprofiles.di.appModule
 import com.example.githubprofiles.di.storageModule
+import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin

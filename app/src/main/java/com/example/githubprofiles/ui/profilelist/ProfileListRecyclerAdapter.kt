@@ -10,19 +10,19 @@ import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
-import com.example.githubprofiles.domain.entities.GitHubProfileListItemDTO
+import com.example.githubprofiles.data.web.WebProfileCommon
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 class ProfileListRecyclerAdapter :
     RecyclerView.Adapter<ProfileListRecyclerAdapter.ProfileListViewHolder>() {
-    private var data: List<GitHubProfileListItemDTO> = emptyList()
+    private var data: List<WebProfileCommon> = emptyList()
 
     private val clickSubject = PublishSubject.create<String>()
 
     val clickEvent: Observable<String> = clickSubject
 
-    fun setData(profiles: List<GitHubProfileListItemDTO>) {
+    fun setData(profiles: List<WebProfileCommon>) {
         data = profiles
         notifyItemRangeChanged(0, data.lastIndex)
     }
@@ -37,7 +37,7 @@ class ProfileListRecyclerAdapter :
         holder.bind(getItem(position))
     }
 
-    private fun getItem(position: Int): GitHubProfileListItemDTO = data[position]
+    private fun getItem(position: Int): WebProfileCommon = data[position]
 
     override fun getItemCount(): Int = data.size
 
@@ -51,7 +51,7 @@ class ProfileListRecyclerAdapter :
         private val profileLogin: TextView = itemView.findViewById(R.id.profile_list_login_load)
         private val profileAvatar: ImageView = itemView.findViewById(R.id.profile_list_image_load)
 
-        fun bind(item: GitHubProfileListItemDTO) {
+        fun bind(item: WebProfileCommon) {
             profileLogin.text = item.login
             profileAvatar.load(item.avatarUrl) {
                 precision(Precision.EXACT)

@@ -1,9 +1,9 @@
-package com.example.githubprofiles.domain.entities
+package com.example.githubprofiles.data.web
 
 
 import com.google.gson.annotations.SerializedName
 
-data class GitHubProfileListItemDTO(
+data class WebProfileCommon(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
     @SerializedName("events_url")

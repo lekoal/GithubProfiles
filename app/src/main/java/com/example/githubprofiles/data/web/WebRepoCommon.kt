@@ -1,4 +1,4 @@
-package com.example.githubprofiles.domain.entities
+package com.example.githubprofiles.data.web
 
 
 import android.os.Parcelable
@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class GitHubProfileRepoListItemDTO(
+data class WebRepoCommon(
     @SerializedName("allow_forking")
     val allowForking: Boolean?,
     @SerializedName("archive_url")
@@ -108,7 +108,7 @@ data class GitHubProfileRepoListItemDTO(
     val openIssues: Int?,
     @SerializedName("open_issues_count")
     val openIssuesCount: Int?,
-    val owner: GitHubRepositoryOwnerDTO?,
+    val owner: WebRepositoryOwner?,
     val `private`: Boolean?,
     @SerializedName("pulls_url")
     val pullsUrl: String?,

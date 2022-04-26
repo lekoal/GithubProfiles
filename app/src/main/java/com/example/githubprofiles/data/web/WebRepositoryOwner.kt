@@ -1,4 +1,4 @@
-package com.example.githubprofiles.domain.entities
+package com.example.githubprofiles.data.web
 
 
 import android.os.Parcelable
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GitHubRepositoryOwnerDTO(
+data class WebRepositoryOwner(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
     @SerializedName("events_url")
