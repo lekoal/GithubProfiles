@@ -9,13 +9,13 @@
     tools:context=".ui.profilelist.ProfileListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_profiles_load"
+        android:id="@+id/rv_profile_list_load"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/rv_profile_item"/>
+        tools:listitem="@layout/rv_profile_list_item"/>
 
     <FrameLayout
-        android:id="@+id/loading_process_layout"
+        android:id="@+id/profile_list_loading_process_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.5"

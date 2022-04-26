@@ -8,13 +8,13 @@
     android:background="@color/light_grey">
 
     <com.example.githubprofiles.utils.EquilateralImageView
-        android:id="@+id/profile_avatar_mini_load"
+        android:id="@+id/profile_list_image_load"
         android:layout_width="@dimen/user_profile_avatar_min_size"
         android:layout_height="@dimen/user_profile_avatar_min_size"
         tools:src="@drawable/ic_github" />
 
     <TextView
-        android:id="@+id/profile_login_load"
+        android:id="@+id/profile_list_login_load"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/user_profile_name_margin"

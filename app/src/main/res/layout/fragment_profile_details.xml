@@ -75,10 +75,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_avatar_load"
-        tools:listitem="@layout/rv_profile_repo_item" />
+        tools:listitem="@layout/rv_profile_details_repo_item" />
 
     <FrameLayout
-        android:id="@+id/loading_process_layout"
+        android:id="@+id/profile_details_loading_process_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.5"
