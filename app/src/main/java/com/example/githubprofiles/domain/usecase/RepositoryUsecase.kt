@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single
 interface RepositoryUsecase {
 
     interface MockProfileCommonUsecase {
-        fun receive(login: String): List<MockProfileCommon>
+        fun receive(): List<MockProfileCommon>
     }
 
     interface MockProfileDetailsUsecase {

@@ -20,9 +20,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 val appModule = module {
 
     single(named("api_url")) { "https://api.github.com/" }
+
+    // Web
     single<RepositoryUsecase.WebProfileCommonUsecase> { WebProfileCommonUsecaseImpl(get()) }
     single<RepositoryUsecase.WebProfileDetailsUsecase> { WebProfileDetailsUsecaseImpl(get()) }
     single<RepositoryUsecase.WebRepoCommonUsecase> { WebRepoCommonUsecaseImpl(get()) }
+
+    // Mock
+
+
+    // DB
+
     single<GitHubApi> { get<Retrofit>().create(GitHubApi::class.java) }
     single<Retrofit> {
         Retrofit.Builder()
