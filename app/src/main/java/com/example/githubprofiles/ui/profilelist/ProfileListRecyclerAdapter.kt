@@ -10,7 +10,7 @@ import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
-import com.example.githubprofiles.data.web.WebProfileCommon
+import com.example.githubprofiles.data.web.entity.WebProfileCommon
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 

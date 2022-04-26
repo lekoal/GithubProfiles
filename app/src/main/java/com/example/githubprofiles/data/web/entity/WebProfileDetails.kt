@@ -1,4 +1,4 @@
-package com.example.githubprofiles.data.web
+package com.example.githubprofiles.data.web.entity
 
 
 import android.os.Parcelable

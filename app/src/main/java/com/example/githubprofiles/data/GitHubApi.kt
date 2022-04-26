@@ -1,8 +1,8 @@
 package com.example.githubprofiles.data
 
-import com.example.githubprofiles.data.web.WebProfileDetails
-import com.example.githubprofiles.data.web.WebProfileCommon
-import com.example.githubprofiles.data.web.WebRepoCommon
+import com.example.githubprofiles.data.web.entity.WebProfileDetails
+import com.example.githubprofiles.data.web.entity.WebProfileCommon
+import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

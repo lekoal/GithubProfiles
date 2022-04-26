@@ -1,5 +1,6 @@
 package com.example.githubprofiles.data.mock
 
+import com.example.githubprofiles.data.mock.entity.MockRepoCommon
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 
 class MockRepoCommonUsecaseImpl : RepositoryUsecase.MockRepoCommonUsecase {

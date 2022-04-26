@@ -4,7 +4,7 @@ import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubprofiles.data.web.WebProfileCommon
+import com.example.githubprofiles.data.web.entity.WebProfileCommon
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy

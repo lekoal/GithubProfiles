@@ -11,8 +11,8 @@ import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
-import com.example.githubprofiles.data.web.WebProfileDetails
-import com.example.githubprofiles.data.web.WebRepoCommon
+import com.example.githubprofiles.data.web.entity.WebProfileDetails
+import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
 import org.koin.android.ext.android.inject

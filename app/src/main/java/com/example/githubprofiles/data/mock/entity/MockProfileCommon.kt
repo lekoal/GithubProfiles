@@ -1,4 +1,4 @@
-package com.example.githubprofiles.data.mock
+package com.example.githubprofiles.data.mock.entity
 
 data class MockProfileCommon(
     val login: String,

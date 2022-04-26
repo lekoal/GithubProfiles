@@ -1,11 +1,14 @@
 package com.example.githubprofiles.domain.usecase
 
-import com.example.githubprofiles.data.mock.MockProfileCommon
-import com.example.githubprofiles.data.mock.MockProfileDetails
-import com.example.githubprofiles.data.mock.MockRepoCommon
-import com.example.githubprofiles.data.web.WebProfileDetails
-import com.example.githubprofiles.data.web.WebProfileCommon
-import com.example.githubprofiles.data.web.WebRepoCommon
+import com.example.githubprofiles.data.db.entity.DBProfileCommon
+import com.example.githubprofiles.data.db.entity.DBProfileDetails
+import com.example.githubprofiles.data.db.entity.DBRepoCommon
+import com.example.githubprofiles.data.mock.entity.MockProfileCommon
+import com.example.githubprofiles.data.mock.entity.MockProfileDetails
+import com.example.githubprofiles.data.mock.entity.MockRepoCommon
+import com.example.githubprofiles.data.web.entity.WebProfileDetails
+import com.example.githubprofiles.data.web.entity.WebProfileCommon
+import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import io.reactivex.rxjava3.core.Single
 
 interface RepositoryUsecase {
@@ -32,5 +35,17 @@ interface RepositoryUsecase {
 
     interface WebRepoCommonUsecase {
         fun receive(login: String): Single<List<WebRepoCommon>>
+    }
+
+    interface DBProfileCommonUsecase {
+        fun receive(): List<DBProfileCommon>
+    }
+
+    interface DBProfileDetailsUsecase {
+        fun receive(login: String): DBProfileDetails
+    }
+
+    interface DBRepoCommonUsecase {
+        fun receive(login: String): List<DBRepoCommon>
     }
 }

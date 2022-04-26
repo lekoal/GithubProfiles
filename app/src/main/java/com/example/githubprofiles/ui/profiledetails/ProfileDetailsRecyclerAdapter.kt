@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubprofiles.R
-import com.example.githubprofiles.data.web.WebRepoCommon
+import com.example.githubprofiles.data.web.entity.WebRepoCommon
 
 class ProfileDetailsRecyclerAdapter :
     RecyclerView.Adapter<ProfileDetailsRecyclerAdapter.ProfileDetailsViewHolder>() {
