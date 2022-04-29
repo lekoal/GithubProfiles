@@ -1,14 +1,9 @@
-package com.example.githubprofiles.di
+package com.example.githubprofiles.di.web
 
 import com.example.githubprofiles.data.GitHubApi
-import com.example.githubprofiles.data.web.WebProfileCommonUsecaseImpl
 import com.example.githubprofiles.data.web.WebProfileDetailsUsecaseImpl
 import com.example.githubprofiles.data.web.WebRepoCommonUsecaseImpl
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
-import com.example.githubprofiles.ui.profiledetails.ProfileDetailsRecyclerAdapter
-import com.example.githubprofiles.ui.profiledetails.ProfileDetailsViewModel
-import com.example.githubprofiles.ui.profilelist.ProfileListRecyclerAdapter
-import com.example.githubprofiles.ui.profilelist.ProfileListViewModel
 import dagger.Module
 import dagger.Provides
 import retrofit2.Converter
@@ -18,22 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
-//val webModule = module {
-//
-//    viewModel { ProfileListViewModel(get()) }
-//    viewModel { ProfileDetailsViewModel(get(), get()) }
-//    single { ProfileListRecyclerAdapter() }
-//    single { ProfileDetailsRecyclerAdapter() }
-//}
-
 @Module
-class WebDependenciesModule() {
-
-    @Singleton
-    @Provides
-    fun getWebProfileCommonUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebProfileCommonUsecase {
-        return WebProfileCommonUsecaseImpl(gitHubApi)
-    }
+class WebProfileDetailsModule {
 
     @Singleton
     @Provides
@@ -67,7 +48,7 @@ class WebDependenciesModule() {
 
     @Singleton
     @Provides
-    fun getRetrofit(baseUrl: String, converterFactory: Converter.Factory): Retrofit {
+    fun getRetrofit(@Named("api_url") baseUrl: String, converterFactory: Converter.Factory): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
