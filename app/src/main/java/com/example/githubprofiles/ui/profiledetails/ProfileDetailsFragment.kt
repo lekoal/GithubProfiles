@@ -51,7 +51,6 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
             val fragment = ProfileDetailsFragment()
             fragment.arguments = Bundle()
             fragment.arguments?.putString(PRESENTER_ID, userLogin)
-            fragment.userLogin = userLogin
             return fragment
         }
     }
@@ -60,14 +59,16 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileDetailsBinding.bind(view)
 
+        userLogin = this.arguments?.getString(PRESENTER_ID).toString()
+
         app.profileDetailsDependenciesComponent.inject(this)
 
         if (savedInstanceState == null) {
             presenter = Presenter(userLogin)
-            presenterStore.savePresenter(presenter)
+            app.presenterStore.savePresenter(presenter)
         } else {
             userLogin = this.arguments?.getString(PRESENTER_ID).toString()
-            presenter = presenterStore.getPresenter(userLogin) as Presenter
+            presenter = app.presenterStore.getPresenter(userLogin) as Presenter
         }
         rvInit()
         getData(presenter.id)

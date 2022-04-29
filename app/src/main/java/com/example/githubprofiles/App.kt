@@ -7,10 +7,13 @@ import com.example.githubprofiles.di.DaggerProfileDetailsDependenciesComponent
 import com.example.githubprofiles.di.DaggerProfileListDependenciesComponent
 import com.example.githubprofiles.di.ProfileDetailsDependenciesComponent
 import com.example.githubprofiles.di.ProfileListDependenciesComponent
+import com.example.githubprofiles.utils.PresenterStore
 
 class App : Application() {
     lateinit var profileListDependenciesComponent: ProfileListDependenciesComponent
     lateinit var profileDetailsDependenciesComponent: ProfileDetailsDependenciesComponent
+
+    val presenterStore by lazy { PresenterStore() }
 
     override fun onCreate() {
         super.onCreate()

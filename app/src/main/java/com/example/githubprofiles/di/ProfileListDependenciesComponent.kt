@@ -10,8 +10,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         DBProfileListModule::class,
-        WebProfileListModule::class,
-        StorageModule::class
+        WebProfileListModule::class
     ]
 )
 interface ProfileListDependenciesComponent {

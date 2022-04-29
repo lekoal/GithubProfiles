@@ -6,8 +6,8 @@ import com.example.githubprofiles.data.db.entity.DBRepoCommon
 import com.example.githubprofiles.data.mock.entity.MockProfileCommon
 import com.example.githubprofiles.data.mock.entity.MockProfileDetails
 import com.example.githubprofiles.data.mock.entity.MockRepoCommon
-import com.example.githubprofiles.data.web.entity.WebProfileDetails
 import com.example.githubprofiles.data.web.entity.WebProfileCommon
+import com.example.githubprofiles.data.web.entity.WebProfileDetails
 import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import io.reactivex.rxjava3.core.Single
 
