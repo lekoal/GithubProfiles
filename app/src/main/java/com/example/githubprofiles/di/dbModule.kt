@@ -32,14 +32,14 @@ class DBDependenciesModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun getProfileCommonDao(): ProfileCommonDao {
-        return getProfileCommonDB().profileCommonDao()
+    fun getProfileCommonDao(profileCommonDB: ProfileCommonDataBase): ProfileCommonDao {
+        return profileCommonDB.profileCommonDao()
     }
 
     @Singleton
     @Provides
-    fun getDBProfileCommonUsecase(): RepositoryUsecase.DBProfileCommonUsecase {
-        return DBProfileCommonUsecaseImpl(getProfileCommonDao())
+    fun getDBProfileCommonUsecase(profileCommonDao: ProfileCommonDao): RepositoryUsecase.DBProfileCommonUsecase {
+        return DBProfileCommonUsecaseImpl(profileCommonDao)
     }
 
     @Singleton
@@ -55,14 +55,14 @@ class DBDependenciesModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun getProfileDetailsDao(): ProfileDetailsDao {
-        return getProfileDetailsDB().profileDetailsDao()
+    fun getProfileDetailsDao(profileDetailsDB: ProfileDetailsDataBase): ProfileDetailsDao {
+        return profileDetailsDB.profileDetailsDao()
     }
 
     @Singleton
     @Provides
-    fun getDBProfileDetailsUsecase(): RepositoryUsecase.DBProfileDetailsUsecase {
-        return DBProfileDetailsUsecaseImpl(getProfileDetailsDao())
+    fun getDBProfileDetailsUsecase(profileDetailsDao: ProfileDetailsDao): RepositoryUsecase.DBProfileDetailsUsecase {
+        return DBProfileDetailsUsecaseImpl(profileDetailsDao)
     }
 
     @Singleton
@@ -78,14 +78,14 @@ class DBDependenciesModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun getRepoCommonDao(): RepoCommonDao {
-        return getRepoCommonDB().repoCommonDao()
+    fun getRepoCommonDao(repoCommonDB: RepoCommonDataBase): RepoCommonDao {
+        return repoCommonDB.repoCommonDao()
     }
 
     @Singleton
     @Provides
-    fun getDBRepoCommonUsecase(): RepositoryUsecase.DBRepoCommonUsecase {
-        return DBRepoCommonUsecaseImpl(getRepoCommonDao())
+    fun getDBRepoCommonUsecase(repoCommonDao: RepoCommonDao): RepositoryUsecase.DBRepoCommonUsecase {
+        return DBRepoCommonUsecaseImpl(repoCommonDao)
     }
 
 }
