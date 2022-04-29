@@ -9,33 +9,69 @@ import com.example.githubprofiles.ui.profiledetails.ProfileDetailsRecyclerAdapte
 import com.example.githubprofiles.ui.profiledetails.ProfileDetailsViewModel
 import com.example.githubprofiles.ui.profilelist.ProfileListRecyclerAdapter
 import com.example.githubprofiles.ui.profilelist.ProfileListViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
+import javax.inject.Singleton
 
-val webModule = module {
+//val webModule = module {
+//
+//    viewModel { ProfileListViewModel(get()) }
+//    viewModel { ProfileDetailsViewModel(get(), get()) }
+//    single { ProfileListRecyclerAdapter() }
+//    single { ProfileDetailsRecyclerAdapter() }
+//}
 
-    single(named("api_url")) { "https://api.github.com/" }
+@Module
+class WebDependenciesModule() {
 
-    single<RepositoryUsecase.WebProfileCommonUsecase> { WebProfileCommonUsecaseImpl(get()) }
-    single<RepositoryUsecase.WebProfileDetailsUsecase> { WebProfileDetailsUsecaseImpl(get()) }
-    single<RepositoryUsecase.WebRepoCommonUsecase> { WebRepoCommonUsecaseImpl(get()) }
+    @Singleton
+    @Provides
+    fun getWebProfileCommonUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebProfileCommonUsecase {
+        return WebProfileCommonUsecaseImpl(gitHubApi)
+    }
 
-    single<GitHubApi> { get<Retrofit>().create(GitHubApi::class.java) }
-    single<Retrofit> {
-        Retrofit.Builder()
-            .baseUrl(get<String>(named("api_url")))
+    @Singleton
+    @Provides
+    fun getWebProfileDetailsUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebProfileDetailsUsecase {
+        return WebProfileDetailsUsecaseImpl(gitHubApi)
+    }
+
+    @Singleton
+    @Provides
+    fun getWebRepoCommonUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebRepoCommonUsecase {
+        return WebRepoCommonUsecaseImpl(gitHubApi)
+    }
+
+    @Singleton
+    @Provides
+    fun getGitHubApi(retrofit: Retrofit): GitHubApi {
+        return retrofit.create(GitHubApi::class.java)
+    }
+
+    @Provides
+    fun getConverterFactory(): Converter.Factory {
+        return GsonConverterFactory.create()
+    }
+
+    @Singleton
+    @Provides
+    @Named("api_url")
+    fun getBaseUrl(): String {
+        return "https://api.github.com/"
+    }
+
+    @Singleton
+    @Provides
+    fun getRetrofit(baseUrl: String, converterFactory: Converter.Factory): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(get())
+            .addConverterFactory(converterFactory)
             .build()
     }
-    factory<Converter.Factory> { GsonConverterFactory.create() }
-    viewModel { ProfileListViewModel(get()) }
-    viewModel { ProfileDetailsViewModel(get(), get()) }
-    single { ProfileListRecyclerAdapter() }
-    single { ProfileDetailsRecyclerAdapter() }
 }
