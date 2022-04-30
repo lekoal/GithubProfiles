@@ -1,4 +1,4 @@
-package com.example.githubprofiles.ui.profiledetails
+package com.example.githubprofiles.ui.profiledetails.viewmodel
 
 import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData

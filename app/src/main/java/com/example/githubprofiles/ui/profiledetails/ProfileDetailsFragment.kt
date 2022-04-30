@@ -16,6 +16,8 @@ import com.example.githubprofiles.data.web.entity.WebProfileDetails
 import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
+import com.example.githubprofiles.ui.profiledetails.viewmodel.ProfileDetailsViewModel
+import com.example.githubprofiles.ui.profiledetails.viewmodel.ProfileDetailsViewModelFactory
 import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
 import javax.inject.Inject

@@ -12,14 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
-//val webModule = module {
-//
-//    viewModel { ProfileListViewModel(get()) }
-//    viewModel { ProfileDetailsViewModel(get(), get()) }
-//    single { ProfileListRecyclerAdapter() }
-//    single { ProfileDetailsRecyclerAdapter() }
-//}
-
 @Module
 class WebProfileListModule {
 
