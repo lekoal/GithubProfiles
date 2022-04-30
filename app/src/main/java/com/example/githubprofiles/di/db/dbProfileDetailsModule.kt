@@ -28,13 +28,17 @@ class DBProfileDetailsModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun getProfileDetailsDao(profileDetailsDB: ProfileDetailsDataBase): ProfileDetailsDao {
+    fun getProfileDetailsDao(
+        profileDetailsDB: ProfileDetailsDataBase
+    ): ProfileDetailsDao {
         return profileDetailsDB.profileDetailsDao()
     }
 
     @Singleton
     @Provides
-    fun getDBProfileDetailsUsecase(profileDetailsDao: ProfileDetailsDao): RepositoryUsecase.DBProfileDetailsUsecase {
+    fun getDBProfileDetailsUsecase(
+        profileDetailsDao: ProfileDetailsDao
+    ): RepositoryUsecase.DBProfileDetailsUsecase {
         return DBProfileDetailsUsecaseImpl(profileDetailsDao)
     }
 
@@ -51,13 +55,17 @@ class DBProfileDetailsModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun getRepoCommonDao(repoCommonDB: RepoCommonDataBase): RepoCommonDao {
+    fun getRepoCommonDao(
+        repoCommonDB: RepoCommonDataBase
+    ): RepoCommonDao {
         return repoCommonDB.repoCommonDao()
     }
 
     @Singleton
     @Provides
-    fun getDBRepoCommonUsecase(repoCommonDao: RepoCommonDao): RepositoryUsecase.DBRepoCommonUsecase {
+    fun getDBRepoCommonUsecase(
+        repoCommonDao: RepoCommonDao
+    ): RepositoryUsecase.DBRepoCommonUsecase {
         return DBRepoCommonUsecaseImpl(repoCommonDao)
     }
 }

@@ -9,7 +9,8 @@ import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class ProfileListViewModel(private val profileRepo: RepositoryUsecase.WebProfileCommonUsecase) : ViewModel() {
+class ProfileListViewModel(private val profileRepo: RepositoryUsecase.WebProfileCommonUsecase) :
+    ViewModel() {
     private val _profiles = MutableLiveData<List<WebProfileCommon>>()
     val profiles: LiveData<List<WebProfileCommon>> = _profiles
 

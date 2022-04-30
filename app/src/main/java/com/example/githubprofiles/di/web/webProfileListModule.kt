@@ -25,7 +25,9 @@ class WebProfileListModule {
 
     @Singleton
     @Provides
-    fun getWebProfileCommonUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebProfileCommonUsecase {
+    fun getWebProfileCommonUsecase(
+        gitHubApi: GitHubApi
+    ): RepositoryUsecase.WebProfileCommonUsecase {
         return WebProfileCommonUsecaseImpl(gitHubApi)
     }
 
@@ -49,7 +51,10 @@ class WebProfileListModule {
 
     @Singleton
     @Provides
-    fun getRetrofit(@Named("api_url") baseUrl: String, converterFactory: Converter.Factory): Retrofit {
+    fun getRetrofit(
+        @Named("api_url") baseUrl: String,
+        converterFactory: Converter.Factory
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

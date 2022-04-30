@@ -33,8 +33,10 @@ class ProfileDetailsRecyclerAdapter :
     override fun getItemCount(): Int = reposData.size
 
     inner class ProfileDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val repoName: TextView = itemView.findViewById(R.id.profile_details_repo_name_load)
-        private val repoDate: TextView = itemView.findViewById(R.id.profile_details_repo_creation_date_load)
+        private val repoName: TextView =
+            itemView.findViewById(R.id.profile_details_repo_name_load)
+        private val repoDate: TextView =
+            itemView.findViewById(R.id.profile_details_repo_creation_date_load)
 
         fun bind(repo: WebRepoCommon) {
             repoName.text = repo.name

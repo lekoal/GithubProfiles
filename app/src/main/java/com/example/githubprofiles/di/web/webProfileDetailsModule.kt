@@ -18,13 +18,17 @@ class WebProfileDetailsModule {
 
     @Singleton
     @Provides
-    fun getWebProfileDetailsUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebProfileDetailsUsecase {
+    fun getWebProfileDetailsUsecase(
+        gitHubApi: GitHubApi
+    ): RepositoryUsecase.WebProfileDetailsUsecase {
         return WebProfileDetailsUsecaseImpl(gitHubApi)
     }
 
     @Singleton
     @Provides
-    fun getWebRepoCommonUsecase(gitHubApi: GitHubApi): RepositoryUsecase.WebRepoCommonUsecase {
+    fun getWebRepoCommonUsecase(
+        gitHubApi: GitHubApi
+    ): RepositoryUsecase.WebRepoCommonUsecase {
         return WebRepoCommonUsecaseImpl(gitHubApi)
     }
 
@@ -48,7 +52,10 @@ class WebProfileDetailsModule {
 
     @Singleton
     @Provides
-    fun getRetrofit(@Named("api_url") baseUrl: String, converterFactory: Converter.Factory): Retrofit {
+    fun getRetrofit(
+        @Named("api_url") baseUrl: String,
+        converterFactory: Converter.Factory
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

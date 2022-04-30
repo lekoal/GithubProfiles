@@ -26,13 +26,17 @@ class DBProfileListModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun getProfileCommonDao(profileCommonDB: ProfileCommonDataBase): ProfileCommonDao {
+    fun getProfileCommonDao(
+        profileCommonDB: ProfileCommonDataBase
+    ): ProfileCommonDao {
         return profileCommonDB.profileCommonDao()
     }
 
     @Singleton
     @Provides
-    fun getDBProfileCommonUsecase(profileCommonDao: ProfileCommonDao): RepositoryUsecase.DBProfileCommonUsecase {
+    fun getDBProfileCommonUsecase(
+        profileCommonDao: ProfileCommonDao
+    ): RepositoryUsecase.DBProfileCommonUsecase {
         return DBProfileCommonUsecaseImpl(profileCommonDao)
     }
 }
