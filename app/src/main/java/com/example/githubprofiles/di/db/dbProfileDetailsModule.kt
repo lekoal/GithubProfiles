@@ -2,8 +2,8 @@ package com.example.githubprofiles.di.db
 
 import android.content.Context
 import androidx.room.Room
-import com.example.githubprofiles.data.db.DBProfileDetailsUsecaseImpl
-import com.example.githubprofiles.data.db.DBRepoCommonUsecaseImpl
+import com.example.githubprofiles.data.db.room.usecase.DBProfileDetailsUsecaseImpl
+import com.example.githubprofiles.data.db.room.usecase.DBRepoCommonUsecaseImpl
 import com.example.githubprofiles.data.db.room.dao.ProfileDetailsDao
 import com.example.githubprofiles.data.db.room.dao.RepoCommonDao
 import com.example.githubprofiles.data.db.room.database.ProfileDetailsDataBase

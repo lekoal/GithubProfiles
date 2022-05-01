@@ -1,7 +1,7 @@
 package com.example.githubprofiles.di.web
 
 import com.example.githubprofiles.data.GitHubApi
-import com.example.githubprofiles.data.web.WebProfileCommonUsecaseImpl
+import com.example.githubprofiles.data.web.usecase.WebProfileCommonUsecaseImpl
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import dagger.Module
 import dagger.Provides

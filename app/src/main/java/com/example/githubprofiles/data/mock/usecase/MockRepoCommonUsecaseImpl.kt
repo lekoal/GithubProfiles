@@ -1,4 +1,4 @@
-package com.example.githubprofiles.data.mock
+package com.example.githubprofiles.data.mock.usecase
 
 import com.example.githubprofiles.data.mock.entity.MockRepoCommon
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase

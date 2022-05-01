@@ -11,6 +11,7 @@ import com.example.githubprofiles.R
 import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
+import com.example.githubprofiles.ui.profilelist.viewmodel.ProfileListViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
     lateinit var profileListRepo: RepositoryUsecase.WebProfileCommonUsecase
 
     private val viewModel: ProfileListViewModel by viewModels {
-        ProfileListViewModelFactory(profileListRepo)
+        app.profileListDependenciesComponent.viewModelFactory()
     }
 
     private val controller by lazy { activity as Controller }

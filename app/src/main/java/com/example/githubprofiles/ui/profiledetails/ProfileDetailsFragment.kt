@@ -16,6 +16,7 @@ import com.example.githubprofiles.data.web.entity.WebProfileDetails
 import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
+import com.example.githubprofiles.ui.profiledetails.viewmodel.ProfileDetailsViewModel
 import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
 import javax.inject.Inject
@@ -38,10 +39,10 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
     private lateinit var presenter: Presenter
 
-    lateinit var userLogin: String
+    private lateinit var userLogin: String
 
     private val viewModel: ProfileDetailsViewModel by viewModels {
-        ProfileDetailsViewModelFactory(profileDetailsRepo, repoCommonRepo)
+        app.profileDetailsDependenciesComponent.viewModelFactory()
     }
 
     private val adapter = ProfileDetailsRecyclerAdapter()

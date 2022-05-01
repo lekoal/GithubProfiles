@@ -2,7 +2,7 @@ package com.example.githubprofiles.di.db
 
 import android.content.Context
 import androidx.room.Room
-import com.example.githubprofiles.data.db.DBProfileCommonUsecaseImpl
+import com.example.githubprofiles.data.db.room.usecase.DBProfileCommonUsecaseImpl
 import com.example.githubprofiles.data.db.room.dao.ProfileCommonDao
 import com.example.githubprofiles.data.db.room.database.ProfileCommonDataBase
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
