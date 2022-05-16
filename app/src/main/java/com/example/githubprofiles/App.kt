@@ -1,19 +1,22 @@
 package com.example.githubprofiles
 
 import android.app.Application
-import android.content.Context
-import androidx.fragment.app.Fragment
-import com.example.githubprofiles.data.ProfileRetrofitImpl
-import com.example.githubprofiles.domain.ProfileRepo
-import com.example.githubprofiles.utils.PresenterStore
+import com.example.githubprofiles.di.dbModule
+import com.example.githubprofiles.di.mockModule
+import com.example.githubprofiles.di.storageModule
+import com.example.githubprofiles.di.webModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
 
 class App : Application() {
-    val gitHubGetUsersData: ProfileRepo by lazy { ProfileRetrofitImpl() }
-    val presenterStore by lazy { PresenterStore() }
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(webModule, dbModule, mockModule, storageModule)
+        }
+    }
 }
-
-val Context.app: App
-    get() = applicationContext as App
-
-val Fragment.app: App
-    get() = requireActivity().app

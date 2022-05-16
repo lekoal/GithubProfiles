@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubprofiles.R
-import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
+import com.example.githubprofiles.data.web.entity.WebRepoCommon
 
 class ProfileDetailsRecyclerAdapter :
     RecyclerView.Adapter<ProfileDetailsRecyclerAdapter.ProfileDetailsViewHolder>() {
 
-    private var reposData: List<GitHubProfileRepoListItemDTO> = emptyList()
+    private var reposData: List<WebRepoCommon> = emptyList()
 
-    fun setData(repos: List<GitHubProfileRepoListItemDTO>) {
+    fun setData(repos: List<WebRepoCommon>) {
         reposData = repos
         notifyItemRangeChanged(0, reposData.lastIndex)
     }
@@ -28,7 +28,7 @@ class ProfileDetailsRecyclerAdapter :
         holder.bind(getRepoItem(position))
     }
 
-    private fun getRepoItem(position: Int): GitHubProfileRepoListItemDTO = reposData[position]
+    private fun getRepoItem(position: Int): WebRepoCommon = reposData[position]
 
     override fun getItemCount(): Int = reposData.size
 
@@ -36,7 +36,7 @@ class ProfileDetailsRecyclerAdapter :
         private val repoName: TextView = itemView.findViewById(R.id.profile_details_repo_name_load)
         private val repoDate: TextView = itemView.findViewById(R.id.profile_details_repo_creation_date_load)
 
-        fun bind(repo: GitHubProfileRepoListItemDTO) {
+        fun bind(repo: WebRepoCommon) {
             repoName.text = repo.name
             repoDate.text = repo.createdAt
         }

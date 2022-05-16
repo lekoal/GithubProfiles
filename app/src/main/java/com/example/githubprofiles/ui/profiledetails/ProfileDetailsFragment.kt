@@ -5,17 +5,18 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
-import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
-import com.example.githubprofiles.domain.entities.GitHubProfileDetailsDTO
-import com.example.githubprofiles.domain.entities.GitHubProfileRepoListItemDTO
+import com.example.githubprofiles.data.web.entity.WebProfileDetails
+import com.example.githubprofiles.data.web.entity.WebRepoCommon
 import com.example.githubprofiles.utils.BasePresenter
+import com.example.githubprofiles.utils.PresenterStore
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val PRESENTER_ID = "PRESENTER_ID"
 
@@ -28,15 +29,9 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
     private var userLogin = ""
 
-    private val viewModel: ProfileDetailsViewModel by activityViewModels {
-        ProfileDetailsViewModelFactory(
-            requireContext()
-                .app
-                .gitHubGetUsersData
-        )
-    }
+    private val viewModel: ProfileDetailsViewModel by viewModel()
 
-    private val adapter = ProfileDetailsRecyclerAdapter()
+    private val adapter: ProfileDetailsRecyclerAdapter by inject()
 
     companion object {
         fun newInstance(userLogin: String): ProfileDetailsFragment {
@@ -50,13 +45,16 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileDetailsBinding.bind(view)
 
+        val presenterStore: PresenterStore by inject()
+
         if (savedInstanceState == null) {
             val id = userLogin
             presenter = Presenter(id)
-            app.presenterStore.savePresenter(presenter)
+            presenterStore.savePresenter(presenter)
         } else {
             val presenterId = savedInstanceState.getString(PRESENTER_ID)!!
-            presenter = app.presenterStore.getPresenter(presenterId) as Presenter
+            userLogin = presenterId
+            presenter = presenterStore.getPresenter(presenterId) as Presenter
         }
         rvInit()
         getData(presenter.id)
@@ -114,6 +112,6 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 }
 
 class Presenter(override val id: String) : BasePresenter {
-    var currentProfileDetails: GitHubProfileDetailsDTO? = null
-    var currentRepoList: List<GitHubProfileRepoListItemDTO>? = null
+    var currentProfileDetails: WebProfileDetails? = null
+    var currentRepoList: List<WebRepoCommon>? = null
 }

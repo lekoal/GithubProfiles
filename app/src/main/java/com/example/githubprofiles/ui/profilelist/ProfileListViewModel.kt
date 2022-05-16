@@ -4,14 +4,14 @@ import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubprofiles.domain.ProfileRepo
-import com.example.githubprofiles.domain.entities.GitHubProfileListItemDTO
+import com.example.githubprofiles.data.web.entity.WebProfileCommon
+import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class ProfileListViewModel(private val profileRepo: ProfileRepo) : ViewModel() {
-    private val _profiles = MutableLiveData<List<GitHubProfileListItemDTO>>()
-    val profiles: LiveData<List<GitHubProfileListItemDTO>> = _profiles
+class ProfileListViewModel(private val profileRepo: RepositoryUsecase.WebProfileCommonUsecase) : ViewModel() {
+    private val _profiles = MutableLiveData<List<WebProfileCommon>>()
+    val profiles: LiveData<List<WebProfileCommon>> = _profiles
 
     private val _inProgress = MutableLiveData<Boolean>()
     val inProgress: LiveData<Boolean> = _inProgress
@@ -27,7 +27,7 @@ class ProfileListViewModel(private val profileRepo: ProfileRepo) : ViewModel() {
         _inProgress.postValue(true)
         compositeDisposable.add(
             profileRepo
-                .getProfileListItem()
+                .receive()
                 .subscribeBy(
                     onSuccess = {
                         _inProgress.postValue(false)

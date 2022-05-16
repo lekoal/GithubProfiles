@@ -1,4 +1,4 @@
-package com.example.githubprofiles.domain.entities
+package com.example.githubprofiles.data.web.entity
 
 
 import android.os.Parcelable
@@ -9,7 +9,7 @@ import kotlinx.parcelize.RawValue
 
 
 @Parcelize
-data class GitHubProfileDetailsDTO(
+data class WebProfileDetails(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
     val bio: @RawValue Any? = null,
