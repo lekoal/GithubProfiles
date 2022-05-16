@@ -5,29 +5,39 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofiles.R
+import com.example.githubprofiles.app
 import com.example.githubprofiles.databinding.FragmentProfileListBinding
+import com.example.githubprofiles.domain.usecase.RepositoryUsecase
+import com.example.githubprofiles.ui.profilelist.viewmodel.ProfileListViewModel
 import io.reactivex.rxjava3.disposables.Disposable
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class ProfileListFragment : Fragment(R.layout.fragment_profile_list) {
 
     private var _binding: FragmentProfileListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProfileListViewModel by viewModel()
+    @Inject
+    lateinit var profileListRepo: RepositoryUsecase.WebProfileCommonUsecase
+
+    private val viewModel: ProfileListViewModel by viewModels {
+        app.profileListDependenciesComponent.viewModelFactory()
+    }
 
     private val controller by lazy { activity as Controller }
 
-    private val adapter: ProfileListRecyclerAdapter by inject()
+    private val adapter = ProfileListRecyclerAdapter()
 
     private var subscribe: Disposable? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileListBinding.bind(view)
+
+        app.profileListDependenciesComponent.inject(this)
 
         rvInit()
         viewModel.getUserProfileList()

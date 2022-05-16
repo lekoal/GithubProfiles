@@ -1,4 +1,4 @@
-package com.example.githubprofiles.data.db
+package com.example.githubprofiles.data.db.room.usecase
 
 import com.example.githubprofiles.data.db.entity.DBProfileCommon
 import com.example.githubprofiles.data.db.room.dao.ProfileCommonDao

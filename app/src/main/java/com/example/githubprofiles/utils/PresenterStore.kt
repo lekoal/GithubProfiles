@@ -1,7 +1,9 @@
 package com.example.githubprofiles.utils
 
+import java.util.*
+
 class PresenterStore(
-    private val storage: MutableMap<String, BasePresenter>
+    private val storage: MutableMap<String, BasePresenter> = WeakHashMap()
 ) {
     fun savePresenter(presenter: BasePresenter) {
         storage[presenter.id] = presenter

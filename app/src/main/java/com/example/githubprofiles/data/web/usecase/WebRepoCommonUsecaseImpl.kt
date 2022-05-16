@@ -1,4 +1,4 @@
-package com.example.githubprofiles.data.web
+package com.example.githubprofiles.data.web.usecase
 
 import com.example.githubprofiles.data.GitHubApi
 import com.example.githubprofiles.data.web.entity.WebRepoCommon

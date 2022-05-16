@@ -1,12 +1,15 @@
 package com.example.githubprofiles.di
 
-import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 import java.util.*
 
-val storageModule = module {
+@Module
+class StorageModule {
 
-    single { PresenterStore(get()) }
-    single<MutableMap<String, BasePresenter>> { WeakHashMap() }
+    @Provides
+    fun getPresenterStore(): PresenterStore {
+        return PresenterStore(WeakHashMap())
+    }
 }

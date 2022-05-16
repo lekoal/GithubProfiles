@@ -5,18 +5,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
 import com.example.githubprofiles.R
-import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
+import com.example.githubprofiles.app
 import com.example.githubprofiles.data.web.entity.WebProfileDetails
 import com.example.githubprofiles.data.web.entity.WebRepoCommon
+import com.example.githubprofiles.databinding.FragmentProfileDetailsBinding
+import com.example.githubprofiles.domain.usecase.RepositoryUsecase
+import com.example.githubprofiles.ui.profiledetails.viewmodel.ProfileDetailsViewModel
 import com.example.githubprofiles.utils.BasePresenter
 import com.example.githubprofiles.utils.PresenterStore
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 const val PRESENTER_ID = "PRESENTER_ID"
 
@@ -25,18 +28,30 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
     private var _binding: FragmentProfileDetailsBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var profileDetailsRepo: RepositoryUsecase.WebProfileDetailsUsecase
+
+    @Inject
+    lateinit var repoCommonRepo: RepositoryUsecase.WebRepoCommonUsecase
+
+    @Inject
+    lateinit var presenterStore: PresenterStore
+
     private lateinit var presenter: Presenter
 
-    private var userLogin = ""
+    private lateinit var userLogin: String
 
-    private val viewModel: ProfileDetailsViewModel by viewModel()
+    private val viewModel: ProfileDetailsViewModel by viewModels {
+        app.profileDetailsDependenciesComponent.viewModelFactory()
+    }
 
-    private val adapter: ProfileDetailsRecyclerAdapter by inject()
+    private val adapter = ProfileDetailsRecyclerAdapter()
 
     companion object {
         fun newInstance(userLogin: String): ProfileDetailsFragment {
             val fragment = ProfileDetailsFragment()
-            fragment.userLogin = userLogin
+            fragment.arguments = Bundle()
+            fragment.arguments?.putString(PRESENTER_ID, userLogin)
             return fragment
         }
     }
@@ -45,16 +60,16 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileDetailsBinding.bind(view)
 
-        val presenterStore: PresenterStore by inject()
+        userLogin = this.arguments?.getString(PRESENTER_ID).toString()
+
+        app.profileDetailsDependenciesComponent.inject(this)
 
         if (savedInstanceState == null) {
-            val id = userLogin
-            presenter = Presenter(id)
-            presenterStore.savePresenter(presenter)
+            presenter = Presenter(userLogin)
+            app.presenterStore.savePresenter(presenter)
         } else {
-            val presenterId = savedInstanceState.getString(PRESENTER_ID)!!
-            userLogin = presenterId
-            presenter = presenterStore.getPresenter(presenterId) as Presenter
+            userLogin = this.arguments?.getString(PRESENTER_ID).toString()
+            presenter = app.presenterStore.getPresenter(userLogin) as Presenter
         }
         rvInit()
         getData(presenter.id)
@@ -102,7 +117,8 @@ class ProfileDetailsFragment : Fragment(R.layout.fragment_profile_details) {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(PRESENTER_ID, presenter.id)
+        userLogin = this.arguments?.getString(PRESENTER_ID).toString()
+        outState.putString(PRESENTER_ID, userLogin)
     }
 
     override fun onDestroy() {

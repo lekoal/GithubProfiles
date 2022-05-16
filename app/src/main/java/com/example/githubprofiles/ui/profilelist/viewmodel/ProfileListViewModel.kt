@@ -1,4 +1,4 @@
-package com.example.githubprofiles.ui.profilelist
+package com.example.githubprofiles.ui.profilelist.viewmodel
 
 import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
@@ -8,8 +8,12 @@ import com.example.githubprofiles.data.web.entity.WebProfileCommon
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import javax.inject.Inject
 
-class ProfileListViewModel(private val profileRepo: RepositoryUsecase.WebProfileCommonUsecase) : ViewModel() {
+class ProfileListViewModel
+@Inject
+constructor(private val profileRepo: RepositoryUsecase.WebProfileCommonUsecase) :
+    ViewModel() {
     private val _profiles = MutableLiveData<List<WebProfileCommon>>()
     val profiles: LiveData<List<WebProfileCommon>> = _profiles
 
