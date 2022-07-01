@@ -4,7 +4,6 @@ import com.example.githubprofiles.data.GitHubApi
 import com.example.githubprofiles.data.web.entity.WebProfileCommon
 import com.example.githubprofiles.di.web.WebProfileListModule
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
-import com.example.githubprofiles.ui.profilelist.viewmodel.ProfileListViewModel
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -20,7 +19,6 @@ class WebProfileListModuleTest {
     private lateinit var gitHubApi: GitHubApi
     private lateinit var profileUsecase: RepositoryUsecase.WebProfileCommonUsecase
     private lateinit var profileList: List<WebProfileCommon>
-    private lateinit var viewModel: ProfileListViewModel
 
     @Before
     fun setUp() {
@@ -31,7 +29,6 @@ class WebProfileListModuleTest {
         gitHubApi = daggerListProfileModule.getGitHubApi(retrofit)
         profileUsecase = daggerListProfileModule.getWebProfileCommonUsecase(gitHubApi)
         profileList = profileUsecase.receive().blockingGet()
-        viewModel = ProfileListViewModel(profileUsecase)
     }
 
     @Test
@@ -55,5 +52,4 @@ class WebProfileListModuleTest {
             assertNotNull(it)
         }
     }
-
 }

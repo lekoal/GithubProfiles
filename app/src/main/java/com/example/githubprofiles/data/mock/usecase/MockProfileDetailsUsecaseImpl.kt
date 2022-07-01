@@ -35,7 +35,7 @@ class MockProfileDetailsUsecaseImpl : RepositoryUsecase.MockProfileDetailsUsecas
         )
     )
     private lateinit var result: MockProfileDetails
-    override fun receive(login: String): MockProfileDetails {
+    override fun receiveItem(login: String): MockProfileDetails {
         profiles.forEach { mockProfileDetails ->
             if (mockProfileDetails.login == login) {
                 result = mockProfileDetails

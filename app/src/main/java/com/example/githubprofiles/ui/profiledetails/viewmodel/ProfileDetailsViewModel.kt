@@ -36,37 +36,41 @@ constructor(
     fun getProfileRepos(userLogin: String) = getProfileReposRemote(userLogin)
 
     private fun getProfileDetailsRemote(userLogin: String) {
-        compositeDisposable.add(
-            profileDetails
-                .receive(userLogin)
-                .subscribeBy(
-                    onSuccess = {
-                        _inProgress.postValue(false)
-                        _profile.postValue(it)
+        profileDetails
+            .receive(userLogin)
+            ?.subscribeBy(
+                onSuccess = {
+                    _inProgress.postValue(false)
+                    _profile.postValue(it)
 
-                    },
-                    onError = {
-                        _onError.postValue(NetworkErrorException("Error loading data!"))
-                    }
-                )
-        )
+                },
+                onError = {
+                    _onError.postValue(NetworkErrorException("Error loading data!"))
+                }
+            )?.let {
+            compositeDisposable.add(
+                it
+            )
+        }
     }
 
     private fun getProfileReposRemote(userLogin: String) {
         _inProgress.postValue(true)
-        compositeDisposable.add(
-            profileRepos
-                .receive(userLogin)
-                .subscribeBy(
-                    onSuccess = {
-                        _inProgress.postValue(false)
-                        _repos.postValue(it)
-                    },
-                    onError = {
-                        _onError.postValue(NetworkErrorException("Error loading data!"))
-                    }
-                )
-        )
+        (profileRepos
+            .receive(userLogin)
+            ?.subscribeBy(
+                onSuccess = {
+                    _inProgress.postValue(false)
+                    _repos.postValue(it)
+                },
+                onError = {
+                    _onError.postValue(NetworkErrorException("Error loading data!"))
+                }
+            ))?.let {
+            compositeDisposable.add(
+                it
+            )
+        }
     }
 
     override fun onCleared() {
