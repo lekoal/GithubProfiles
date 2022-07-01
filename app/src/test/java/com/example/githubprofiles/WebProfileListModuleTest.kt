@@ -49,4 +49,11 @@ class WebProfileListModuleTest {
         assertNotEquals(profileList[0].login, "somename")
     }
 
+    @Test
+    fun webProfileListModuleTest_ProfilesIsNotNull_ReturnsTrue() {
+        profileList.forEach {
+            assertNotNull(it)
+        }
+    }
+
 }
