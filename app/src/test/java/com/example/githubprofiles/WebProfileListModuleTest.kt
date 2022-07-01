@@ -4,14 +4,14 @@ import com.example.githubprofiles.data.GitHubApi
 import com.example.githubprofiles.data.web.entity.WebProfileCommon
 import com.example.githubprofiles.di.web.WebProfileListModule
 import com.example.githubprofiles.domain.usecase.RepositoryUsecase
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
+import com.example.githubprofiles.ui.profilelist.viewmodel.ProfileListViewModel
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Converter
 import retrofit2.Retrofit
 
-class DaggerModuleTest {
+class WebProfileListModuleTest {
 
     private lateinit var daggerListProfileModule: WebProfileListModule
     private lateinit var baseUrl: String
@@ -20,6 +20,7 @@ class DaggerModuleTest {
     private lateinit var gitHubApi: GitHubApi
     private lateinit var profileUsecase: RepositoryUsecase.WebProfileCommonUsecase
     private lateinit var profileList: List<WebProfileCommon>
+    private lateinit var viewModel: ProfileListViewModel
 
     @Before
     fun setUp() {
@@ -29,22 +30,22 @@ class DaggerModuleTest {
         retrofit = daggerListProfileModule.getRetrofit(baseUrl, converterFactory)
         gitHubApi = daggerListProfileModule.getGitHubApi(retrofit)
         profileUsecase = daggerListProfileModule.getWebProfileCommonUsecase(gitHubApi)
-
         profileList = profileUsecase.receive().blockingGet()
+        viewModel = ProfileListViewModel(profileUsecase)
     }
 
     @Test
-    fun daggerModuleTest_CorrectBaseUrl_ReturnsTrue() {
+    fun webProfileListModuleTest_CorrectBaseUrl_ReturnsTrue() {
         assertEquals(baseUrl, "https://api.github.com/")
     }
 
     @Test
-    fun daggerModuleTest_CorrectProfilesGetting_ReturnsTrue() {
+    fun webProfileListModuleTest_CorrectProfilesGetting_ReturnsTrue() {
         assertEquals(profileList[0].login, "mojombo")
     }
 
     @Test
-    fun daggerModuleTest_IncorrectProfileGetting_ReturnsTrue() {
+    fun webProfileListModuleTest_IncorrectProfileGetting_ReturnsTrue() {
         assertNotEquals(profileList[0].login, "somename")
     }
 
