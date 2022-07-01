@@ -35,7 +35,26 @@ class WebProfileUsecaseImplTest {
         webRepos = WebRepoCommonUsecaseImpl(gitHubApi)
     }
 
+    @Test
+    fun webProfileUsecaseImplTest_ProfileAvatarUrlEquals_ReturnsTrue() {
+        val firstObject = webDetails.receive("ivey")?.blockingGet()
+        val secondObject = webProfiles.receive().blockingGet()[5]
+        assertEquals(firstObject?.avatarUrl, secondObject.avatarUrl)
+    }
 
+    @Test
+    fun webProfileUsecaseImplTest_ProfileLoginNotEquals_ReturnsTrue() {
+        val firstObject = webDetails.receive("ivey")?.blockingGet()
+        val secondObject = webDetails.receive("defunct")?.blockingGet()
+        assertNotEquals(firstObject, secondObject)
+    }
+
+    @Test
+    fun webProfileUsecaseImplTest_ClonedArraysEquals_ReturnsTrue() {
+        val originObject = webRepos.receive("ivey")?.blockingGet()?.toTypedArray()
+        val cloneObject = webRepos.receiveClone()?.blockingGet()?.toTypedArray()
+        assertArrayEquals(originObject, cloneObject)
+    }
 
     @Test
     fun webProfileUsecaseImplTest_ProfileDetailsIsNull_ReturnsTrue() {
