@@ -8,7 +8,19 @@ import io.reactivex.rxjava3.core.Single
 class WebRepoCommonUsecaseImpl(
     private val api: GitHubApi
 ) : RepositoryUsecase.WebRepoCommonUsecase {
-    override fun receive(login: String): Single<List<WebRepoCommon>> {
-        return api.listRepos(login)
+    private var originData: Single<List<WebRepoCommon>>? = null
+    private var cloneData: Single<List<WebRepoCommon>>? = null
+    override fun receive(login: String): Single<List<WebRepoCommon>>? {
+        originData = api.listRepos(login)
+        cloneData = originData
+        return if (login != "") {
+            originData
+        } else {
+            null
+        }
+    }
+
+    override fun receiveClone(): Single<List<WebRepoCommon>>? {
+        return cloneData
     }
 }

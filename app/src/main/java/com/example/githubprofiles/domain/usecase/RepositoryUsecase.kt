@@ -18,11 +18,12 @@ interface RepositoryUsecase {
     }
 
     interface MockProfileDetailsUsecase {
-        fun receive(login: String): MockProfileDetails
+        fun receiveItem(login: String): MockProfileDetails
     }
 
     interface MockRepoCommonUsecase {
-        fun receive(login: String): List<MockRepoCommon>
+        fun receiveItem(login: String): List<MockRepoCommon>
+        fun receive(): List<MockRepoCommon>
     }
 
     interface WebProfileCommonUsecase {
@@ -30,11 +31,12 @@ interface RepositoryUsecase {
     }
 
     interface WebProfileDetailsUsecase {
-        fun receive(login: String): Single<WebProfileDetails>
+        fun receive(login: String): Single<WebProfileDetails>?
     }
 
     interface WebRepoCommonUsecase {
-        fun receive(login: String): Single<List<WebRepoCommon>>
+        fun receive(login: String): Single<List<WebRepoCommon>>?
+        fun receiveClone(): Single<List<WebRepoCommon>>?
     }
 
     interface DBProfileCommonUsecase {

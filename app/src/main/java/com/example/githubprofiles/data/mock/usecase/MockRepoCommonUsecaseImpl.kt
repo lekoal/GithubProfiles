@@ -67,7 +67,7 @@ class MockRepoCommonUsecaseImpl : RepositoryUsecase.MockRepoCommonUsecase {
         )
     )
     private val result: MutableList<MockRepoCommon> = mutableListOf()
-    override fun receive(login: String): List<MockRepoCommon> {
+    override fun receiveItem(login: String): List<MockRepoCommon> {
         repos.forEach { mockRepoCommon ->
             if (mockRepoCommon.login == login) {
                 result.add(mockRepoCommon)
@@ -75,4 +75,6 @@ class MockRepoCommonUsecaseImpl : RepositoryUsecase.MockRepoCommonUsecase {
         }
         return result
     }
+
+    override fun receive() = repos
 }

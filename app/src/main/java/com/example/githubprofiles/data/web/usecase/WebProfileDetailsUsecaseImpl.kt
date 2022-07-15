@@ -8,7 +8,11 @@ import io.reactivex.rxjava3.core.Single
 class WebProfileDetailsUsecaseImpl(
     private val api: GitHubApi
 ) : RepositoryUsecase.WebProfileDetailsUsecase {
-    override fun receive(login: String): Single<WebProfileDetails> {
-        return api.profileDetails(login)
+    override fun receive(login: String): Single<WebProfileDetails>? {
+        return if (login != "") {
+            api.profileDetails(login)
+        } else {
+            null
+        }
     }
 }
